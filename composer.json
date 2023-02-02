@@ -27,6 +27,7 @@
         "php-di/slim-bridge": "^3.3",
         "ramsey/uuid": "^4.7",
       "ext-pdo": "*",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "zircote/swagger-php": "^3.2"
     }
 }

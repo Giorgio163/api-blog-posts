@@ -3,6 +3,7 @@
 namespace Project4\Entity;
 
 use DateTimeImmutable;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class Posts
@@ -16,6 +17,19 @@ class Posts
         private string $author,
         private  $posted_at
     ){}
+
+    public static function populate(array $data): self
+    {
+        return new self(
+            Uuid::fromString($data['id']),
+            $data['title'],
+            $data['slug'],
+            $data['content'],
+            $data['thumbnail'],
+            $data['author'],
+            $data['posted_at'],
+        );
+    }
 
     public function id(): UuidInterface
     {

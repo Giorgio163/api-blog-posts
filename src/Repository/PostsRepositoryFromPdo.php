@@ -26,12 +26,15 @@ class PostsRepositoryFromPdo implements PostsRepository
        ]);
     }
 
+    /** @return Posts[] */
     public function findAll(): array
     {
-        $stm = $this->pdo->prepare('SELECT * FROM posts');
-        $stm->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Posts::class);
-        $stm->execute();
-
-        return $stm->fetchAll();
+        $result = $this->pdo->query('SELECT * FROM posts')
+            ->fetchAll(PDO::FETCH_ASSOC);
+        $posts = [];
+        foreach ($result as $postsData){
+            $posts [] = Posts::populate($postsData);
+        }
+        return $posts;
     }
 }

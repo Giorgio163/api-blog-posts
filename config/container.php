@@ -9,16 +9,16 @@ $container = new Container();
 $container->set('settings', static function() {
     return [
         'db' => [
-            'host' => $_ENV['DB_HOST'],
-            'dbname' => $_ENV['DB_NAME'],
-            'user' => $_ENV['DB_USER'],
-            'pass' => $_ENV['DB_PASS'],
+            'host' => $_ENV['DB_HOST'] ?? 'localhost',
+            'dbname' => $_ENV['DB_NAME'] ?? 'test',
+            'user' => $_ENV['DB_USER'] ?? 'root',
+            'pass' => $_ENV['DB_PASS'] ?? 'root',
         ]
     ];
 });
 
-$container->set('db', static function ($c) {
-    $db = $c->get('settings')['db'];
+$container->set('db', static function ($container) {
+    $db = $container->get('settings')['db'];
     $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
         $db['user'], $db['pass']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -26,8 +26,8 @@ $container->set('db', static function ($c) {
     return $pdo;
 });
 
-$container->set('post-repository', static function (Container $c) {
-   $pdo = $c->get('db');
+$container->set(PostsRepository::class, static function (Container $container) {
+   $pdo = $container->get('db');
    return new PostsRepositoryFromPdo($pdo);
 });
 

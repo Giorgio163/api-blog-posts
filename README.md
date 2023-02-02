@@ -13,3 +13,4 @@ Also, the following commands:
 - phpstan,
 - codesniffer,
 - ```composer require php-di/slim-bridge```
+- ```composer require zircote/swagger-php ^3.2```
