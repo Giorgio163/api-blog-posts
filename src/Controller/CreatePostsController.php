@@ -23,7 +23,7 @@ class CreatePostsController
      */
     public function __construct(Container $container)
     {
-        $this->postsRepository = $container->get('posts-repository');
+        $this->postsRepository = $container->get('post-repository');
     }
 
     public function __invoke(Request $request, Response $response, $args): JsonResponse

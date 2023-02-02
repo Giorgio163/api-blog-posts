@@ -2,21 +2,22 @@
 
 use DI\Container;
 use Project4\Repository\PostsRepositoryFromPdo;
+use Project4\Repository\PostsRepository;
 
 $container = new Container();
 
 $container->set('settings', static function() {
     return [
         'db' => [
-            'host' => 'localhost',
-            'dbname' => 'api',
-            'user' => 'root',
-            'pass' => '',
+            'host' => $_ENV['DB_HOST'],
+            'dbname' => $_ENV['DB_NAME'],
+            'user' => $_ENV['DB_USER'],
+            'pass' => $_ENV['DB_PASS'],
         ]
     ];
 });
 
-$container->set('db', function ($c) {
+$container->set('db', static function ($c) {
     $db = $c->get('settings')['db'];
     $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
         $db['user'], $db['pass']);
@@ -25,7 +26,7 @@ $container->set('db', function ($c) {
     return $pdo;
 });
 
-$container->set('posts-repository', static function (Container $c) {
+$container->set('post-repository', static function (Container $c) {
    $pdo = $c->get('db');
    return new PostsRepositoryFromPdo($pdo);
 });
