@@ -9,9 +9,8 @@ use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Info(title="API Project", version="1.0")
+ * @OA\Info(title="Module 4 Project", version="1.0")
  */
-
 class OpenApiController
 {
     public function __invoke(Request $request, Response $response, $args): JsonResponse

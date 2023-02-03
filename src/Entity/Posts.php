@@ -8,6 +8,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class Posts
 {
+
+
     public function __construct(
         private UuidInterface $id,
         private string $title,
@@ -15,9 +17,12 @@ class Posts
         private string $content,
         private string $thumbnail,
         private string $author,
-        private  $posted_at
+        private  $posted_at,
     ){}
 
+    /**
+     * @throws \Exception
+     */
     public static function populate(array $data): self
     {
         return new self(

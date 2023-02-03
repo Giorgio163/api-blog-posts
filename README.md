@@ -14,3 +14,4 @@ Also, the following commands:
 - codesniffer,
 - ```composer require php-di/slim-bridge```
 - ```composer require zircote/swagger-php ^3.2```
+- ```git clone https://github.com/swagger-api/swagger-ui.git```

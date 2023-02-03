@@ -19,6 +19,22 @@ class ListPostsController
         $this->postsRepository = $container->get(PostsRepository::class);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/posts/listAll",
+     *     description="Returns all Posts.",
+     *     tags={"Posts"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Posts response",
+     *         @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/PostResponse")
+     *         )
+     *     )
+     * )
+     */
+
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $posts = $this->postsRepository->findAll();
@@ -31,6 +47,7 @@ class ListPostsController
         $response = [];
         foreach ($posts as $post) {
             $response[] = [
+                'id' => $post->id()->toString(),
                 'title' => $post->title(),
                 'slug' => $post->slug(),
                 'content' => $post->content(),

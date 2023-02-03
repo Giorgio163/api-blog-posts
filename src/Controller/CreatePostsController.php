@@ -61,16 +61,16 @@ class CreatePostsController
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-       $inputs = json_decode($request->getBody()->getContents(), true);
+        $inputs = json_decode($request->getBody()->getContents(), true);
 
-       $post = new Posts(Uuid::uuid4(), $inputs['title'], $inputs['slug'], $inputs['content'],
-                $inputs['thumbnail'], $inputs['author'], $inputs['posted_at']);
-       $this->postsRepository->storePost($post);
+        $post = new Posts(Uuid::uuid4(), $inputs['title'], $inputs['slug'], $inputs['content'],
+            $inputs['thumbnail'], $inputs['author'], $inputs['posted_at']);
+        $this->postsRepository->storePost($post);
 
-       $output = [
-           ...$inputs,
-       ];
+        $output = [
+            ...$inputs,
+        ];
 
-       return new JsonResponse($output);
+        return new JsonResponse($output);
     }
 }
