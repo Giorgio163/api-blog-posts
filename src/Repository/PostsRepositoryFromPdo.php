@@ -50,4 +50,37 @@ class PostsRepositoryFromPdo implements PostsRepository
         $data = $stm->fetch(PDO::FETCH_ASSOC);
         return Posts::populate($data);
     }
+
+    public function delete(UuidInterface $id): string
+    {
+        $stm = $this->pdo->prepare('DELETE FROM posts WHERE id=?');
+        $stm->execute([$id->toString()]);
+        return $id;
+    }
+
+    public function update(UuidInterface $id): string
+    {
+        $stm = $this->pdo->prepare(<<<SQL
+                UPDATE posts SET
+                    title=:title,
+                    slug=:slug,
+                    content=:content,
+                    thumbnail=:thumbnail,
+                    author=:author,
+                    posted_at=:posted
+                    WHERE id=:id
+                SQL);
+        $stm->bindParam(':title', $data['title']);
+        $stm->bindParam(':slug', $data['slug']);
+        $stm->bindParam(':content', $data['content']);
+        $stm->bindParam(':thumbnail', $data['thumbnail']);
+        $stm->bindParam(':author', $data['author']);
+        $stm->bindParam(':posted_at', $data['posted_at']);
+        $stm->bindParam(':id', $id);
+
+        $stm->execute();
+
+        return $id;
+    }
 }
+

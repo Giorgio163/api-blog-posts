@@ -3,30 +3,35 @@
 namespace Project4\Controller;
 
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
-use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class FindPostController
+class DeletePostController
 {
     private PostsRepository $postsRepository;
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);
     }
 
     /**
-     * @OA\Get(
-     *     path="/posts/{id}",
-     *     description="Returns a Post by ID.",
+     * @OA\Delete(
+     *     path="/post/delete/{id}",
+     *     description="Delete a post by ID.",
      *     tags={"Posts"},
-     *      @OA\Parameter(
-     *         description="ID of Post to fetch",
+     *     @OA\Parameter(
+     *         description="ID of post to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
@@ -35,17 +40,20 @@ class FindPostController
      *         )
      *     ),
      *     @OA\Response(
-     *         response=200,
-     *         description="Post response",
-     *         @OA\JsonContent(ref="#/components/schemas/PostResponse")
-     *         )
+     *         response="200",
+     *         description="The ID of the post"
      *     )
      * )
      */
-
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $post = $this->postsRepository->find(Uuid::fromString($args['id']));
-        return new JsonResponse(PostsResponse::fromPost($post));
+        $id = $this->postsRepository->delete(Uuid::fromString($args['id']));
+
+        $res = [
+            'status' => 'success',
+            'data' => [ 'id' => $id ]
+        ];
+
+        return new JsonResponse($res, 200);
     }
 }
