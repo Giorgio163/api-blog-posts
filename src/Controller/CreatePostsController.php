@@ -17,6 +17,7 @@ use Slim\Psr7\Response;
 class CreatePostsController
 {
     private PostsRepository $postsRepository;
+    private string $base;
 
     /**
      * @throws DependencyException
@@ -25,6 +26,7 @@ class CreatePostsController
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);
+        $this->base = $container->get('settings')['app']['domain'];
     }
 
     /**
@@ -41,7 +43,7 @@ class CreatePostsController
      *                  @OA\Property(property="title", type="string", example="Excellent work"),
      *                  @OA\Property(property="slug", type="string", example="Yes it is"),
      *                  @OA\Property(property="content", type="string", example="Look Here"),
-     *                  @OA\Property(property="thumbnail", type="string", example="photo.png"),
+     *                  @OA\Property(property="thumbnail", type="string", example="Link of the image"),
      *                  @OA\Property(property="author", type="string", example="Giorgio Selmi"),
      *                  @OA\Property(property="posted_at", type="string", example="2023-02-03"),
      *      )
@@ -63,8 +65,12 @@ class CreatePostsController
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
 
+        $id = uniqid();
+        $b64 = $inputs['thumbnail'];
+        file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
+
         $post = new Posts(Uuid::uuid4(), $inputs['title'], $inputs['slug'], $inputs['content'],
-            $inputs['thumbnail'], $inputs['author'], $inputs['posted_at']);
+            $this->base . '/images/' . $id . '.jpg', $inputs['author'], $inputs['posted_at']);
         $this->postsRepository->storePost($post);
 
         $output = [

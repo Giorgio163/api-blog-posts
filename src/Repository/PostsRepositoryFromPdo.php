@@ -10,7 +10,6 @@ class PostsRepositoryFromPdo implements PostsRepository
 {
     public function __construct(private \PDO $pdo)
     {
-
     }
 
     public function storePost(Posts $post): void
@@ -28,7 +27,9 @@ class PostsRepositoryFromPdo implements PostsRepository
     }
 
 
-    /** @return Posts[] */
+    /** @return Posts[]
+     * @throws \Exception
+     */
     public function findAll(): array
     {
         $result = $this->pdo->query('SELECT * FROM posts')
@@ -58,7 +59,7 @@ class PostsRepositoryFromPdo implements PostsRepository
         return $id;
     }
 
-    public function update(UuidInterface $id): string
+    public function update(UuidInterface $id, array $data): void
     {
         $stm = $this->pdo->prepare(<<<SQL
                 UPDATE posts SET
@@ -67,20 +68,19 @@ class PostsRepositoryFromPdo implements PostsRepository
                     content=:content,
                     thumbnail=:thumbnail,
                     author=:author,
-                    posted_at=:posted
+                    posted_at=:posted_at
                     WHERE id=:id
                 SQL);
+
+        $stm->bindParam(':id', $id);
         $stm->bindParam(':title', $data['title']);
         $stm->bindParam(':slug', $data['slug']);
         $stm->bindParam(':content', $data['content']);
         $stm->bindParam(':thumbnail', $data['thumbnail']);
         $stm->bindParam(':author', $data['author']);
         $stm->bindParam(':posted_at', $data['posted_at']);
-        $stm->bindParam(':id', $id);
 
         $stm->execute();
-
-        return $id;
     }
 }
 

@@ -15,3 +15,4 @@ Also, the following commands:
 - ```composer require php-di/slim-bridge```
 - ```composer require zircote/swagger-php ^3.2```
 - ```git clone https://github.com/swagger-api/swagger-ui.git```
+- https://www.base64encoder.io/image-to-base64-converter/

@@ -8,6 +8,9 @@ $container = new Container();
 
 $container->set('settings', static function() {
     return [
+        'app' => [
+            'domain' => $_ENV['APP_URL'] ?? 'localhost',
+        ],
         'db' => [
             'host' => $_ENV['DB_HOST'] ?? 'localhost',
             'dbname' => $_ENV['DB_NAME'] ?? 'test',

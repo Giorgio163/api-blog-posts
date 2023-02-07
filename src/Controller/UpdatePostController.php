@@ -28,7 +28,7 @@ class UpdatePostController
     /**
      * @OA\Put(
      *     path="/post/update/{id}",
-     *     description="Update a student by ID.",
+     *     description="Update a Post by ID.",
      *     tags={"Posts"},
      *     @OA\Parameter(
      *         description="ID of Post to fetch",
@@ -44,7 +44,7 @@ class UpdatePostController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/Post")
+     *              @OA\Schema(ref="#/components/schemas/UpdateResponse")
      *          )
      *     ),
      *     @OA\Response(
@@ -55,13 +55,15 @@ class UpdatePostController
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $id = $this->postsRepository->update(Uuid::fromString($args['id']));
+        $data = json_decode($request->getBody()->getContents(), true);
 
-        $res = [
+        $this->postsRepository->update(Uuid::fromString($args['id']), $data);
+
+        $output = [
             'status' => 'success',
-            'data' => [ 'id' => $id ]
+            'data' => [ 'id' => $args['id'] ]
         ];
 
-        return new JsonResponse($res, 200);
+        return new JsonResponse($output);
     }
 }

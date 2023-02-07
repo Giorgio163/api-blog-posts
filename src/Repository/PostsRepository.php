@@ -13,5 +13,5 @@ interface PostsRepository
     public function findAll(): array;
     public function find(Uuid $id): Posts;
     public function delete(UuidInterface $id): string;
-    public function update(UuidInterface $id): string;
+    public function update(UuidInterface $id, array $data): void;
 }
