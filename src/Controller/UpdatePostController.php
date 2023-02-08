@@ -15,6 +15,7 @@ use Slim\Psr7\Response;
 class UpdatePostController
 {
     private PostsRepository $postsRepository;
+    private string $base;
 
     /**
      * @throws DependencyException
@@ -23,6 +24,7 @@ class UpdatePostController
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);
+        $this->base = $container->get('settings')['app']['domain'];
     }
 
     /**
@@ -55,7 +57,21 @@ class UpdatePostController
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $data = json_decode($request->getBody()->getContents(), true);
+        $inputs = json_decode($request->getBody()->getContents(), true);
+
+        $id = uniqid();
+        $b64 = $inputs['thumbnail'];
+        file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
+
+        $data = [
+            'id' => Uuid::uuid4(),
+            'title' => $inputs['title'],
+            'slug' => $inputs['slug'],
+            'content' => $inputs['content'],
+            'thumbnail' => $this->base . '/images/' . $id . '.jpg',
+            'author' => $inputs['author'],
+            'posted_at' => $inputs['posted_at']
+        ];
 
         $this->postsRepository->update(Uuid::fromString($args['id']), $data);
 

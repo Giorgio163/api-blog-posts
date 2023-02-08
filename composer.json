@@ -28,6 +28,7 @@
         "ramsey/uuid": "^4.7",
       "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.5",
-        "zircote/swagger-php": "^3.2"
+        "zircote/swagger-php": "^3.2",
+        "cocur/slugify": "^4.3"
     }
 }

@@ -43,7 +43,7 @@ class CreatePostsController
      *                  @OA\Property(property="title", type="string", example="Excellent work"),
      *                  @OA\Property(property="slug", type="string", example="Yes it is"),
      *                  @OA\Property(property="content", type="string", example="Look Here"),
-     *                  @OA\Property(property="thumbnail", type="string", example="Link of the image"),
+     *                  @OA\Property(property="thumbnail", type="string", example="photo from Base64Encoder"),
      *                  @OA\Property(property="author", type="string", example="Giorgio Selmi"),
      *                  @OA\Property(property="posted_at", type="string", example="2023-02-03"),
      *      )

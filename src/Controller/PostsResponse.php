@@ -21,7 +21,7 @@ class PostsResponse
         public readonly string $slug,
         /** @OA\Property(property="content", type="string", example="test") */
         public readonly string $content,
-        /** @OA\Property(property="thumbnail", type="string", example="photo.png") */
+        /** @OA\Property(property="thumbnail", type="string", example="photo from Base64Encoder") */
         public readonly string $thumbnail,
         /** @OA\Property(property="author", type="string", example="Giorgio Selmi") */
         public readonly string $author,

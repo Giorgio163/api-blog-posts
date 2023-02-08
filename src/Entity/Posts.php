@@ -9,7 +9,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class Posts
 {
-
     public function __construct(
         private UuidInterface $id,
         private string $title,

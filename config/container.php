@@ -1,6 +1,8 @@
 <?php
 
 use DI\Container;
+use Project4\Repository\CategoriesRepository;
+use Project4\Repository\CategoriesRepositoryFromPdo;
 use Project4\Repository\PostsRepositoryFromPdo;
 use Project4\Repository\PostsRepository;
 
@@ -32,6 +34,11 @@ $container->set('db', static function ($container) {
 $container->set(PostsRepository::class, static function (Container $container) {
    $pdo = $container->get('db');
    return new PostsRepositoryFromPdo($pdo);
+});
+
+$container->set(CategoriesRepository::class, static function (Container $container) {
+    $pdo = $container->get('db');
+    return new CategoriesRepositoryFromPdo($pdo);
 });
 
 
