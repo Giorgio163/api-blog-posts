@@ -15,7 +15,7 @@ class PostsResponse
     public function __construct(
         /** @OA\Property(property="id", type="string", example="e8f69951-8a11-4a99-9129-09bfd24e9edc") */
         public readonly string $id,
-        /** @OA\Property(property="title", type="string", example="its the fist post") */
+        /** @OA\Property(property="title", type="string", example="PHP COURSE") */
         public readonly string $title,
         /** @OA\Property(property="slug", type="string", example="php-course") */
         public readonly string $slug,
@@ -41,5 +41,4 @@ class PostsResponse
             $post->posted_at()->format('Y-m-d H:i:s')
         );
     }
-
 }

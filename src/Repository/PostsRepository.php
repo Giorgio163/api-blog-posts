@@ -14,4 +14,5 @@ interface PostsRepository
     public function find(Uuid $id): Posts;
     public function delete(UuidInterface $id): string;
     public function update(UuidInterface $id, array $data): void;
+    public function findBySlug($slug): array;
 }
