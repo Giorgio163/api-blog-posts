@@ -4,6 +4,7 @@ namespace Project4\Repository;
 
 use PDO;
 use Project4\Entity\Posts;
+use Project4\Entity\PostsCategories;
 use Ramsey\Uuid\UuidInterface;
 
 class PostsRepositoryFromPdo implements PostsRepository
@@ -46,9 +47,15 @@ class PostsRepositoryFromPdo implements PostsRepository
      */
     public function find(UuidInterface $id): Posts
     {
-        $stm = $this->pdo->prepare('SELECT * FROM posts WHERE id=?');
-        $stm->execute([$id->toString()]);
+        $stm = $this->pdo->prepare(<<<SQL
+           SELECT * FROM posts WHERE id=:id
+        SQL);
+
+        $stm->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Posts::class);
+        $stm->bindParam(':id', $id);
+        $stm->execute();
         $data = $stm->fetch(PDO::FETCH_ASSOC);
+
         return Posts::populate($data);
     }
 

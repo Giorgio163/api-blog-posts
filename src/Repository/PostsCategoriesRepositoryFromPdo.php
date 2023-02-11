@@ -4,6 +4,7 @@ namespace Project4\Repository;
 
 use PDO;
 use Project4\Entity\PostsCategories;
+use Ramsey\Uuid\Uuid;
 
 class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
 {
@@ -26,13 +27,13 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
             ':id_category' => $categoriesId
         ];
 
-       $stm->execute($param);
+        $stm->execute($param);
     }
 
-    public function find($id): PostsCategories
+    public function find($id): array
     {
         $stmt = $this->pdo->prepare(<<<SQL
-           SELECT pc.id_post AS id_posts, pc.id_category AS id_categories, p.title AS title, p.slug AS slug,
+           SELECT pc.id_post AS id_post, pc.id_category AS id_category, p.title AS title, p.slug AS slug,
                   p.content AS content, p.thumbnail AS thumbnail, p.author AS author, p.posted_at AS posted_at, c.name AS name
             FROM categories c 
             JOIN posts_categories pc ON pc.id_category=c.id
@@ -40,10 +41,35 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
             WHERE id_post = :id_post
         SQL);
 
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, PostsCategories::class);
         $stmt->bindParam(':id_post', $id);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return PostsCategories::populate($data);
+
+
+
+        $postCat = [];
+        foreach ($data as $post) {
+            $postCat[] = [
+                'id_post' => $post['id_post'],
+                'title' => $post['title'],
+                'slug' => $post['slug'],
+                'content' => $post['content'],
+                'thumbnail' => $post['thumbnail'],
+                'author' => $post['author'],
+                'posted_at' => $post['posted_at']
+            ];
+
+                $postCategory = [];
+                foreach ($data as $row) {
+                    $postCategory[$row['id_category']]['category'][] = [
+                        'id_category' => $row['id_category'],
+                        'name' => $row['name'],
+                    ];
+            }
+        }
+        $newArray = array_merge($postCat, $postCategory);
+
+
+        return array_unique($newArray, SORT_REGULAR);
     }
 }

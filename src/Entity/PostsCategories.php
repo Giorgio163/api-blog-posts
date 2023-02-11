@@ -3,23 +3,41 @@
 namespace Project4\Entity;
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class PostsCategories
 {
+        private string $title;
+        private string $slug;
+        private string $content;
+        private string $thumbnail;
+        private string $author;
+        private  $posted_at;
+        private string $name;
+
     public function __construct(
-        private string $postsId,
-        private string $title,
-        private string $slug,
-        private string $content,
-        private string $thumbnail,
-        private string $author,
-        private string $posted_at,
-        private string $categoriesId,
-        private string $name
-    ){}
+        private UuidInterface $postsId,
+        private UuidInterface $categoriesId,
+        string $title = '',
+        string $slug = '',
+        string $content = '',
+        string $thumbnail = '',
+        string $author = '',
+        string $posted_at = '',
+        string $name = '',
+    ){
+            $this->title = $title;
+            $this->slug = $slug;
+            $this->content = $content;
+            $this->thumbnail = $thumbnail;
+            $this->author = $author;
+            $this->posted_at = $posted_at;
+            $this->name = $name;
+    }
 
     public static function populate(array $data): self
     {
+
         return new self(
             Uuid::fromString($data['id_post']),
             $data['title'],
@@ -29,16 +47,16 @@ class PostsCategories
             $data['author'],
             $data['posted_at'],
             Uuid::fromString($data['id_category']),
-            $data['name'],
+            $data['name']
         );
     }
 
-    public function categoriesId(): string
+    public function categoriesId(): UuidInterface
     {
        return $this->categoriesId;
     }
 
-    public function postsId(): string
+    public function postsId(): UuidInterface
     {
         return $this->postsId;
     }

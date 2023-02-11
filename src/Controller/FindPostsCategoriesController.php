@@ -51,6 +51,6 @@ class FindPostsCategoriesController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $postCategory = $this->postsCategoriesRepository->find($args['id_post']);
-        return new JsonResponse(PostsCategoryResponse::fromPostsCategories($postCategory));
+        return new JsonResponse($postCategory);
     }
 }

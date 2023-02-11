@@ -26,7 +26,7 @@ class PostsResponse
         /** @OA\Property(property="author", type="string", example="Giorgio Selmi") */
         public readonly string $author,
         /** @OA\Property(property="posted_at", type="string", example="2023-01-20 13:56:00") */
-        public readonly ?string  $posted_at
+        public readonly ?string  $posted_at,
     ){}
 
     public static function fromPost(Posts $post): self
@@ -38,7 +38,7 @@ class PostsResponse
             $post->content(),
             $post->thumbnail(),
             $post->author(),
-            $post->posted_at()->format('Y-m-d H:i:s')
+            $post->posted_at()->format('Y-m-d H:i:s'),
         );
     }
 }

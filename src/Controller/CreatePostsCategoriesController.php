@@ -9,6 +9,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\PostsCategories;
 use Project4\Repository\PostsCategoriesRepository;
+use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
@@ -59,7 +60,7 @@ class CreatePostsCategoriesController
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
 
-        $PostsCategories = new PostsCategories($inputs['id_category'], $inputs['id_post']);
+        $PostsCategories = new PostsCategories(Uuid::fromString($inputs['id_post']), Uuid::fromString($inputs['id_category']));
         $this->postsCategoriesRepository->storePostsCategories($PostsCategories);
 
         $output = [

@@ -2,6 +2,7 @@
 
 namespace Project4\Controller;
 
+use Cocur\Slugify\Slugify;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
@@ -41,7 +42,6 @@ class CreatePostsController
      *              mediaType="application/json",
      *              @OA\Schema(
      *                  @OA\Property(property="title", type="string", example="Excellent work"),
-     *                  @OA\Property(property="slug", type="string", example="excellent-work"),
      *                  @OA\Property(property="content", type="string", example="Look Here"),
      *                  @OA\Property(property="thumbnail", type="string", example="photo from Base64Encoder"),
      *                  @OA\Property(property="author", type="string", example="Giorgio Selmi"),
@@ -65,11 +65,14 @@ class CreatePostsController
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
 
+        $slugify = new Slugify();
+        $slug = $slugify->slugify($inputs['title']);
+
         $id = uniqid();
         $b64 = $inputs['thumbnail'];
         file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
 
-        $post = new Posts(Uuid::uuid4(), $inputs['title'], $inputs['slug'], $inputs['content'],
+        $post = new Posts(Uuid::uuid4(), $inputs['title'], $slug, $inputs['content'],
             $this->base . '/images/' . $id . '.jpg', $inputs['author'], $inputs['posted_at']);
         $this->postsRepository->storePost($post);
 

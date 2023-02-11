@@ -10,7 +10,7 @@ interface PostsCategoriesRepository
 
     /**
      * @param $id
-     * @return PostsCategories
+     * @return array
      */
-    public function find($id): PostsCategories;
+    public function find($id): array;
 }
