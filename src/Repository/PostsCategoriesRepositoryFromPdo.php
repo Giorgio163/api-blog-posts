@@ -49,7 +49,7 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
 
         $postCat = [];
         foreach ($data as $post) {
-            $postCat[] = [
+            $postCat = [
                 'id_post' => $post['id_post'],
                 'title' => $post['title'],
                 'slug' => $post['slug'],
@@ -59,17 +59,15 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
                 'posted_at' => $post['posted_at']
             ];
 
-                $postCategory = [];
+            $postCategory = [];
                 foreach ($data as $row) {
-                    $postCategory[$row['id_category']]['category'][] = [
+                    $postCategory['category'][] = [
                         'id_category' => $row['id_category'],
                         'name' => $row['name'],
                     ];
             }
         }
-        $newArray = array_merge($postCat, $postCategory);
-
-
+         $newArray = array_merge($postCat, $postCategory);
         return array_unique($newArray, SORT_REGULAR);
     }
 }

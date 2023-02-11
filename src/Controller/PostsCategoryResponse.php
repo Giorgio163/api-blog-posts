@@ -33,19 +33,4 @@ class PostsCategoryResponse
         /** @OA\Property(property="name", type="string", example="Example: Food") */
         public readonly string $name,
     ){}
-
-    public static function fromPostsCategories(PostsCategories $postsCategories): self
-    {
-        return new PostsCategoryResponse(
-            $postsCategories->postsId(),
-            $postsCategories->title(),
-            $postsCategories->slug(),
-            $postsCategories->content(),
-            $postsCategories->thumbnail(),
-            $postsCategories->author(),
-            $postsCategories->posted_at(),
-            $postsCategories->categoriesId(),
-            $postsCategories->name(),
-        );
-    }
 }

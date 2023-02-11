@@ -17,12 +17,4 @@ class UpdateCategoryResponse
         /** @OA\Property(property="slug", type="string", example="It is about food") */
         public readonly string $description,
     ){}
-
-    public static function updateCategories(Categories $categories): self
-    {
-        return new updateCategoriesResponse(
-            $categories->name(),
-            $categories->description(),
-        );
-    }
 }
