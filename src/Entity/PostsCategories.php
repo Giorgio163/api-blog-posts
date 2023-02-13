@@ -7,13 +7,13 @@ use Ramsey\Uuid\UuidInterface;
 
 class PostsCategories
 {
-        private string $title;
-        private string $slug;
-        private string $content;
-        private string $thumbnail;
-        private string $author;
+    private string $title;
+    private string $slug;
+    private string $content;
+    private string $thumbnail;
+    private string $author;
         private  $posted_at;
-        private string $name;
+    private string $name;
 
     public function __construct(
         private UuidInterface $postsId,
@@ -25,7 +25,7 @@ class PostsCategories
         string $author = '',
         string $posted_at = '',
         string $name = '',
-    ){
+    ) {
             $this->title = $title;
             $this->slug = $slug;
             $this->content = $content;
@@ -53,7 +53,7 @@ class PostsCategories
 
     public function categoriesId(): UuidInterface
     {
-       return $this->categoriesId;
+        return $this->categoriesId;
     }
 
     public function postsId(): UuidInterface

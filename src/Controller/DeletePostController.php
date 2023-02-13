@@ -7,6 +7,7 @@ use DI\DependencyException;
 use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
+use PDOException;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
@@ -47,13 +48,23 @@ class DeletePostController
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $id = $this->postsRepository->delete(Uuid::fromString($args['id']));
+        try {
+            $id = $this->postsRepository->delete(Uuid::fromString($args['id']));
 
-        $res = [
-            'status' => 'success',
-            'data' => [ 'id' => $id ]
-        ];
+            $res = [
+                'status' => 'success',
+                'data' => [ 'id' => $id ]
+            ];
 
-        return new JsonResponse($res, 200);
+            return new JsonResponse($res, 200);
+        } catch (PDOException $e) {
+            error_log($e);
+            $res = [
+                'status' => 'error',
+                'message' => 'Cannot delete a Post that is present in a Category'
+            ];
+
+            return new JsonResponse($res, 500);
+        }
     }
 }

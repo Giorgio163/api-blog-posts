@@ -12,9 +12,18 @@ use Project4\Entity\Categories;
 class UpdateCategoryResponse
 {
     public function __construct(
-        /** @OA\Property(property="title", type="string", example="Example: Food") */
+        /**
+         * 
+         *
+         * @OA\Property(property="name", type="string", example="Example: Food")
+         */
         public readonly string $name,
-        /** @OA\Property(property="slug", type="string", example="It is about food") */
+        /**
+         * 
+         *
+         * @OA\Property(property="description", type="string", example="It is about food")
+         */
         public readonly string $description,
-    ){}
+    ) {
+    }
 }

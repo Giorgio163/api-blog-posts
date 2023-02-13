@@ -14,10 +14,12 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
 
     public function storePostsCategories(PostsCategories $postsCategories): void
     {
-        $stm = $this->pdo->prepare(<<<SQL
+        $stm = $this->pdo->prepare(
+            <<<SQL
                 INSERT INTO posts_categories (id_post, id_category)
                 VALUES (:id_post, :id_category);
-                SQL);
+                SQL
+        );
 
         $postId = $postsCategories->postsId();
         $categoriesId = $postsCategories->categoriesId();
@@ -32,21 +34,24 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
 
     public function find($id): array
     {
-        $stmt = $this->pdo->prepare(<<<SQL
+        $stmt = $this->pdo->prepare(
+            <<<SQL
            SELECT pc.id_post AS id_post, pc.id_category AS id_category, p.title AS title, p.slug AS slug,
-                  p.content AS content, p.thumbnail AS thumbnail, p.author AS author, p.posted_at AS posted_at, c.name AS name
+                  p.content AS content, p.thumbnail AS thumbnail, p.author AS author, p.posted_at AS posted_at,
+                  c.name AS name
             FROM categories c 
             JOIN posts_categories pc ON pc.id_category=c.id
             JOIN posts p ON pc.id_post=p.id
             WHERE id_post = :id_post
-        SQL);
+        SQL
+        );
 
         $stmt->bindParam(':id_post', $id);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-
+        $postCategory = [];
         $postCat = [];
         foreach ($data as $post) {
             $postCat = [
@@ -58,13 +63,12 @@ class PostsCategoriesRepositoryFromPdo implements PostsCategoriesRepository
                 'author' => $post['author'],
                 'posted_at' => $post['posted_at']
             ];
-
             $postCategory = [];
-                foreach ($data as $row) {
-                    $postCategory['category'][] = [
-                        'id_category' => $row['id_category'],
-                        'name' => $row['name'],
-                    ];
+            foreach ($data as $row) {
+                $postCategory['category'][] = [
+                    'id_category' => $row['id_category'],
+                    'name' => $row['name'],
+                ];
             }
         }
          $newArray = array_merge($postCat, $postCategory);

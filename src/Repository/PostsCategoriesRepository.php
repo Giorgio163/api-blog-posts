@@ -9,7 +9,7 @@ interface PostsCategoriesRepository
     public function storePostsCategories(PostsCategories $postsCategories): void;
 
     /**
-     * @param $id
+     * @param  $id
      * @return array
      */
     public function find($id): array;

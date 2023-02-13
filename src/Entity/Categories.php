@@ -11,7 +11,8 @@ class Categories
         private UuidInterface $id,
         private string $name,
         private string $description,
-    ){}
+    ) {
+    }
 
     public static function populate(array $data): self
     {

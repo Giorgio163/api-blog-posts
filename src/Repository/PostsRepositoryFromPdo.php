@@ -4,7 +4,6 @@ namespace Project4\Repository;
 
 use PDO;
 use Project4\Entity\Posts;
-use Project4\Entity\PostsCategories;
 use Ramsey\Uuid\UuidInterface;
 
 class PostsRepositoryFromPdo implements PostsRepository
@@ -16,7 +15,8 @@ class PostsRepositoryFromPdo implements PostsRepository
     public function storePost(Posts $post): void
     {
         $stm = $this->pdo->prepare('INSERT INTO posts VALUES (?,?,?,?,?,?,?)');
-        $stm->execute([
+        $stm->execute(
+            [
             $post->id()->toString(),
             $post->title(),
             $post->slug(),
@@ -24,11 +24,15 @@ class PostsRepositoryFromPdo implements PostsRepository
             $post->thumbnail(),
             $post->author(),
             $post->posted_at()->format('Y-m-d H:i:s')
-        ]);
+            ]
+        );
     }
 
 
-    /** @return Posts[]
+    /**
+     * 
+     *
+     * @return Posts[]
      * @throws \Exception
      */
     public function findAll(): array
@@ -47,9 +51,11 @@ class PostsRepositoryFromPdo implements PostsRepository
      */
     public function find(UuidInterface $id): Posts
     {
-        $stm = $this->pdo->prepare(<<<SQL
+        $stm = $this->pdo->prepare(
+            <<<SQL
            SELECT * FROM posts WHERE id=:id
-        SQL);
+        SQL
+        );
 
         $stm->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Posts::class);
         $stm->bindParam(':id', $id);
@@ -68,7 +74,8 @@ class PostsRepositoryFromPdo implements PostsRepository
 
     public function update(UuidInterface $id, array $data): void
     {
-        $stm = $this->pdo->prepare(<<<SQL
+        $stm = $this->pdo->prepare(
+            <<<SQL
                 UPDATE posts SET
                     title=:title,
                     slug=:slug,
@@ -77,7 +84,8 @@ class PostsRepositoryFromPdo implements PostsRepository
                     author=:author,
                     posted_at=:posted_at
                     WHERE id=:id
-                SQL);
+                SQL
+        );
 
         $stm->bindParam(':id', $id);
         $stm->bindParam(':title', $data['title']);
@@ -98,11 +106,11 @@ class PostsRepositoryFromPdo implements PostsRepository
         $stm = $this->pdo->prepare('SELECT * FROM posts WHERE slug=?');
         $stm->execute([$slug]);
         $data = [];
-        foreach ($stm as $postSlug){
+
+        foreach ($stm as $postSlug) {
             $data [] = Posts::populate($postSlug);
         }
 
         return $data;
     }
 }
-

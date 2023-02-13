@@ -30,24 +30,24 @@ class UpdateCategoriesController
      *     path="/categories/update/{id}",
      *     description="Update a Category by ID.",
      *     tags={"Categories"},
-     *     @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of Category to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\RequestBody(
+     * @OA\RequestBody(
      *          description="Category to be inserted.",
      *          required=true,
-     *          @OA\MediaType(
+     * @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/UpdateCategoriesResponse")
+     * @OA\Schema(ref="#/components/schemas/UpdateCategoriesResponse")
      *          )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response="200",
      *         description="The ID of the Category"
      *     )

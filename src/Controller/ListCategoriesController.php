@@ -45,8 +45,8 @@ class ListCategoriesController
         foreach ($categories as $category) {
             $response[] = [
                 'id' => $category->id()->toString(),
-                'title' => $category->name(),
-                'slug' => $category->description(),
+                'name' => $category->name(),
+                'description' => $category->description(),
             ];
         }
 

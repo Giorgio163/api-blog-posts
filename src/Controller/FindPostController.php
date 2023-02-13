@@ -5,9 +5,9 @@ namespace Project4\Controller;
 use DI\Container;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
-use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 

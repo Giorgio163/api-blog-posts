@@ -17,7 +17,8 @@ class Posts
         private string $thumbnail,
         private string $author,
         private  $posted_at,
-    ){}
+    ) {
+    }
 
     /**
      * @throws \Exception

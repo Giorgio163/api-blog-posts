@@ -5,6 +5,7 @@ namespace Project4\Controller;
 use DI\Container;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
+use PDOException;
 use Project4\Repository\CategoriesRepository;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
@@ -40,13 +41,23 @@ class DeleteCategoriesController
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $id = $this->categoriesRepository->deleteCategory(Uuid::fromString($args['id']));
+        try {
+            $id =   $this->categoriesRepository->deleteCategory(Uuid::fromString($args['id']));
 
-        $res = [
-            'status' => 'success',
-            'data' => [ 'id' => $id ]
-        ];
+            $res = [
+                'status' => 'success',
+                'data' => [ 'id' => $id ]
+            ];
 
-        return new JsonResponse($res, 200);
+            return new JsonResponse($res, 200);
+        } catch (PDOException $e) {
+            error_log($e);
+            $res = [
+                'status' => 'error',
+                'message' => 'Cannot delete a category that is present in a post'
+            ];
+
+            return new JsonResponse($res, 500);
+        }
     }
 }
