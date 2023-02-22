@@ -13,19 +13,23 @@ An API application that lets the user create posts, categories, and the relation
 - Run the application in your preferred localhost: `php -S localhost:???? -t public/`
 - Run a test using PHPStan to see the code quality: `vendor/bin/phpstan analyse src`
 - Run a test using PHP Code Sniffer: `./vendor/bin/phpcs --standard=PSR12 src/`
+- php vendor/bin/phpunit test/ --colors
+
 
 ## Required
 
 - Slim Framework: `composer require slim/slim:"4.*"`,
-  `composer require slim/psr7`,
-  `composer require nyholm/psr7 nyholm/psr7-server`,
-  `composer require guzzlehttp/psr7 "^2"`,
-  `composer require laminas/laminas-diactoros`,
-  `composer require php-di/slim-bridge`
+-  `composer require slim/psr7`,
+-  `composer require nyholm/psr7 nyholm/psr7-server`,
+-  `composer require guzzlehttp/psr7 "^2"`,
+-  `composer require laminas/laminas-diactoros`,
+-  `composer require php-di/slim-bridge`
 - Ramsey Uuid: `composer require ramsey/uuid`
 - Dotenv: `composer require vlucas/phpdotenv`
 - Swagger: `composer require zircote/swagger-php`
 - Slugify: `composer require cocur/slugify`
+- `composer require --dev phpunit/phpunit ^9.5`
+
 
 ### Remember to install PHPSTAN and codesniffer during the installation process in dev, if unable run the following:
 
