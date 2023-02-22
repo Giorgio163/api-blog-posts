@@ -10,12 +10,16 @@ use Project4\Controller\FindCategoriesController;
 use Project4\Controller\FindPostController;
 use Project4\Controller\FindPostsCategoriesController;
 use Project4\Controller\HomeController;
+use Project4\Controller\JwtController;
 use Project4\Controller\ListAllPostsSlugController;
 use Project4\Controller\ListCategoriesController;
 use Project4\Controller\ListPostsController;
 use Project4\Controller\OpenApiController;
 use Project4\Controller\UpdateCategoriesController;
 use Project4\Controller\UpdatePostController;
+use Project4\Factory\JwtMiddlewareFactory;
+use Project4\Factory\OnlyAdminMiddleware;
+use Project4\Middleware\CustomErrorHandler;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../boot.php';
@@ -25,6 +29,11 @@ $container = require __DIR__ . '/../config/container.php';
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+$authMiddleware = JwtMiddlewareFactory::make();
+
+// JWT
+$app->post('/jwt', new JwtController());
+
 // API
 $app->get('/apidocs', fn () => new HtmlResponse(file_get_contents(__DIR__ . '/apidocs.html')));
 $app->get('/openApi', OpenApiController::class);
@@ -33,24 +42,42 @@ $app->get('/openApi', OpenApiController::class);
 $app->get('/', HomeController::class);
 
 // Routes Posts
-$app->get('/posts/listAll', new ListPostsController($container));
-$app->get('/posts/listAllBySlug/{slug}', new ListAllPostsSlugController($container));
-$app->post('/posts/create', new CreatePostsController($container));
-$app->get('/posts/{id}', new FindPostController($container));
-$app->delete('/post/delete/{id}',new DeletePostController($container));
-$app->put('/post/update/{id}',new UpdatePostController($container));
+$app->get('/posts/listAll', new ListPostsController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->get('/posts/listAllBySlug/{slug}', new ListAllPostsSlugController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
+$app->post('/posts/create', new CreatePostsController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->get('/posts/{id}', new FindPostController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->delete('/post/delete/{id}',new DeletePostController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->put('/post/update/{id}',new UpdatePostController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
 
 // Routes Categories
-$app->get('/categories/listAllCategories', new ListCategoriesController($container));
-$app->post('/categories/create', new CreateCategoriesController($container));
-$app->get('/categories/{id}', new FindCategoriesController($container));
-$app->delete('/categories/delete/{id}', new DeleteCategoriesController($container));
-$app->put('/categories/update/{id}', new UpdateCategoriesController($container));
+$app->get('/categories/listAllCategories', new ListCategoriesController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
+$app->post('/categories/create', new CreateCategoriesController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->get('/categories/{id}', new FindCategoriesController($container))->add(new OnlyAdminMiddleware())
+    ->add($authMiddleware);
+$app->delete('/categories/delete/{id}', new DeleteCategoriesController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
+$app->put('/categories/update/{id}', new UpdateCategoriesController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 
 // Routes PostsCategory
-$app->post('/PostsCategories/create', new CreatePostsCategoriesController($container));
-$app->get('/PostsCategories/{id_post}', new FindPostsCategoriesController($container));
+$app->post('/PostsCategories/create', new CreatePostsCategoriesController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
+$app->get('/PostsCategories/{id_post}', new FindPostsCategoriesController($container))
+    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 
-$app->addErrorMiddleware(true, true, true);
+$customErrorHandler = new CustomErrorHandler($app);
+
+$displayErrorDetails = $_ENV['APP_ENV'] !== 'prod';
+
+$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, true, true);
+$errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 
 $app->run();

@@ -8,7 +8,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Project4\\": "src/"
+            "Project4\\": "src/",
+            "TestProject4\\": "test/"
         }
     },
     "authors": [
@@ -28,7 +29,12 @@
         "ramsey/uuid": "^4.7",
       "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.5",
-        "zircote/swagger-php": "^3.2",
-        "cocur/slugify": "^4.3"
+        "zircote/swagger-php": "^3.3.0",
+        "cocur/slugify": "^4.3",
+        "tuupola/slim-jwt-auth": "^3.7",
+        "doctrine/orm": "^2.14",
+        "symfony/cache": "^6.2",
+        "doctrine/annotations": "^v1.7.0",
+        "ramsey/uuid-doctrine": "^2.0"
     }
 }

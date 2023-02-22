@@ -9,6 +9,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Categories;
 use Project4\Repository\CategoriesRepository;
+use Project4\Validator\CategoryValidator;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -57,6 +58,8 @@ class CreateCategoriesController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
+
+        CategoryValidator::validate($inputs);
 
         $category = new Categories(Uuid::uuid4(), $inputs['name'], $inputs['description']);
         $this->categoriesRepository->storeCategories($category);

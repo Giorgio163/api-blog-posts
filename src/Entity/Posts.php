@@ -2,22 +2,34 @@
 
 namespace Project4\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 
+#[ORM\Entity, ORM\Table(name: 'Posts')]
 class Posts
 {
+    #[ORM\Column(name: 'posted_at', type: 'datetimetz_immutable', nullable: false)]
+    private DateTimeImmutable  $posted_at;
+
     public function __construct(
+        #[ORM\Id, ORM\Column(type: 'uuid', unique: true)]
         private UuidInterface $id,
+        #[ORM\Column(type: 'string', nullable: false)]
         private string $title,
+        #[ORM\Column(type: 'string', nullable: false)]
         private string $slug,
+        #[ORM\Column(type: 'string', nullable: false)]
         private string $content,
+        #[ORM\Column(type: 'string', nullable: false)]
         private string $thumbnail,
+        #[ORM\Column(type: 'string', nullable: false)]
         private string $author,
-        private  $posted_at,
+
     ) {
+        $this->posted_at = new DateTimeImmutable('now');
     }
 
     /**
@@ -32,7 +44,6 @@ class Posts
             $data['content'],
             $data['thumbnail'],
             $data['author'],
-            $data['posted_at'],
         );
     }
 

@@ -3,12 +3,14 @@
 namespace Project4\Controller;
 
 use Cocur\Slugify\Slugify;
+use DateTimeImmutable;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Repository\PostsRepository;
+use Project4\Validator\PostValidator;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -60,6 +62,8 @@ class UpdatePostController
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
 
+        PostValidator::validate($inputs);
+
         $slugify = new Slugify();
         $slug = $slugify->slugify($inputs['title']);
 
@@ -68,13 +72,12 @@ class UpdatePostController
         file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
 
         $data = [
-            'id' => Uuid::uuid4(),
             'title' => $inputs['title'],
             'slug' => $slug,
             'content' => $inputs['content'],
             'thumbnail' => $this->base . '/images/' . $id . '.jpg',
             'author' => $inputs['author'],
-            'posted_at' => $inputs['posted_at']
+            'posted_at' => new DateTimeImmutable('now')
         ];
 
         $this->postsRepository->update(Uuid::fromString($args['id']), $data);

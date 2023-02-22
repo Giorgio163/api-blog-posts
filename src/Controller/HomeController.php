@@ -10,7 +10,7 @@ class HomeController
 {
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $data = ['app' => 'Module 4 Project', 'version' => '1.0'];
+        $data = ['app' => 'Module 5 Project', 'version' => '2.0'];
         return new JsonResponse($data);
     }
 }

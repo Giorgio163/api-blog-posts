@@ -10,8 +10,8 @@ use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
+use Project4\Validator\PostValidator;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
@@ -65,6 +65,7 @@ class CreatePostsController
     {
         $inputs = json_decode($request->getBody()->getContents(), true);
 
+        PostValidator::validate($inputs);
         $slugify = new Slugify();
         $slug = $slugify->slugify($inputs['title']);
 
@@ -73,7 +74,7 @@ class CreatePostsController
         file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
 
         $post = new Posts(Uuid::uuid4(), $inputs['title'], $slug, $inputs['content'],
-            $this->base . '/images/' . $id . '.jpg', $inputs['author'], $inputs['posted_at']);
+            $this->base . '/images/' . $id . '.jpg', $inputs['author']);
         $this->postsRepository->storePost($post);
 
         $output = [

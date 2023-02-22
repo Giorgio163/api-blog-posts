@@ -8,6 +8,7 @@ use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Repository\CategoriesRepository;
+use Project4\Validator\CategoryValidator;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -56,6 +57,8 @@ class UpdateCategoriesController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $data = json_decode($request->getBody()->getContents(), true);
+
+        CategoryValidator::validate($data);
 
         $this->categoriesRepository->updateCategory(Uuid::fromString($args['id']), $data);
 
