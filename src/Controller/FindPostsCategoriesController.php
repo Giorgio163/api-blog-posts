@@ -30,19 +30,19 @@ class FindPostsCategoriesController
      *     path="/PostsCategories/{id_post}",
      *     description="Returns a PostCategory by ID.",
      *     tags={"PostsCategories"},
-     *      @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of Post to fetch",
      *         in="path",
      *         name="id_post",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="PostCategory response",
-     *         @OA\JsonContent(ref="#/components/schemas/PostsCategoryResponse")
+     * @OA\JsonContent(ref="#/components/schemas/PostsCategoryResponse")
      *         )
      *     )
      * )

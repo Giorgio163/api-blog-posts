@@ -31,25 +31,25 @@ class CreatePostsCategoriesController
      *     path="/PostsCategories/create",
      *     description="Create a new category",
      *     tags={"PostsCategories"},
-     *     @OA\RequestBody(
+     * @OA\RequestBody(
      *         description="PostsCategory to be created",
      *         required=true,
-     *         @OA\MediaType(
+     * @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(
-     *                  @OA\Property(property="id_category", type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
-     *                  @OA\Property(property="id_post", type="string", example="33d2efab684c-115ec074-2a37-40ba-a51c"),
+     * @OA\Schema(
+     * @OA\Property(property="id_category", type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
+     * @OA\Property(property="id_post",     type="string", example="33d2efab684c-115ec074-2a37-40ba-a51c"),
      *      )
      *    )
      * ),
      * @OA\Response(
      *     response="200",
      *     description="The ID of the category",
-     *       @OA\MediaType(
+     * @OA\MediaType(
      *           mediaType="application/json",
-     *           @OA\Schema(
-     *              @OA\Property(property="id_category", type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
-     *               @OA\Property(property="id_post", type="string", example="33d2efab684c-115ec074-2a37-40ba-a51c"),
+     * @OA\Schema(
+     * @OA\Property(property="id_category", type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
+     * @OA\Property(property="id_post",     type="string", example="33d2efab684c-115ec074-2a37-40ba-a51c"),
      *       )
      *     )
      *   )

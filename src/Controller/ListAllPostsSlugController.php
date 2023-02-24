@@ -26,19 +26,19 @@ class ListAllPostsSlugController
      *     path="/posts/listAllBySlug/{slug}",
      *     description="Returns a Post by slug.",
      *     tags={"Posts"},
-     *      @OA\Parameter(
+     * @OA\Parameter(
      *         description="Slug of Post to fetch",
      *         in="path",
      *         name="slug",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="Post response",
-     *         @OA\JsonContent(ref="#/components/schemas/PostResponse")
+     * @OA\JsonContent(ref="#/components/schemas/PostResponse")
      *         )
      *     )
      * )
@@ -50,7 +50,11 @@ class ListAllPostsSlugController
         return $this->toJson($posts);
     }
 
-    /** @param Posts[] $posts */
+    /**
+     * 
+     *
+     * @param Posts[] $posts 
+     */
     private function toJson(array $posts): JsonResponse
     {
         $response = [];

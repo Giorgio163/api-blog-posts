@@ -36,6 +36,7 @@
         "doctrine/orm": "^2.14",
         "symfony/cache": "^6.2",
         "doctrine/annotations": "^v1.7.0",
-        "ramsey/uuid-doctrine": "^2.0"
+        "ramsey/uuid-doctrine": "^2.0",
+        "monolog/monolog": "^3.3"
     }
 }

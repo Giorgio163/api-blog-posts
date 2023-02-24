@@ -24,19 +24,19 @@ class FindCategoriesController
      *     path="/categories/{id}",
      *     description="Returns a category by ID.",
      *     tags={"Categories"},
-     *      @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of Category to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="Post response",
-     *         @OA\JsonContent(ref="#/components/schemas/CategoryResponse")
+     * @OA\JsonContent(ref="#/components/schemas/CategoryResponse")
      *         )
      *     )
      * )

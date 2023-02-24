@@ -2,7 +2,10 @@
 
 namespace Project4\Middleware;
 
+use Monolog\Logger;
 use Project4\Exception\InvalidDataException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 use Throwable;
@@ -11,8 +14,15 @@ use Psr\Log\LoggerInterface;
 
 class CustomErrorHandler
 {
+    private Logger $logger;
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __construct(private App $app)
     {
+        $this->logger = $this->app->getContainer()->get('logger');
     }
 
     public function __invoke(
@@ -22,8 +32,7 @@ class CustomErrorHandler
         bool $logErrors,
         bool $logErrorDetails,
         ?LoggerInterface $logger = null
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $payload = $this->getPayload($exception);
 
         if ($displayErrorDetails) {

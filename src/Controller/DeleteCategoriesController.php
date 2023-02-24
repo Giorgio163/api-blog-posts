@@ -24,16 +24,16 @@ class DeleteCategoriesController
      *     path="/categories/delete/{id}",
      *     description="Delete a category by ID.",
      *     tags={"Categories"},
-     *     @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of category to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response="200",
      *         description="The ID of the category"
      *     )

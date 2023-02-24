@@ -23,12 +23,12 @@ class ListCategoriesController
      *     path="/categories/listAllCategories",
      *     description="Returns all Categories.",
      *     tags={"Categories"},
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="Categories response",
-     *         @OA\JsonContent(
+     * @OA\JsonContent(
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/CategoryResponse")
+     * @OA\Items(ref="#/components/schemas/CategoryResponse")
      *         )
      *     )
      * )

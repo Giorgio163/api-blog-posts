@@ -31,16 +31,16 @@ class DeletePostController
      *     path="/post/delete/{id}",
      *     description="Delete a post by ID.",
      *     tags={"Posts"},
-     *     @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of post to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response="200",
      *         description="The ID of the post"
      *     )

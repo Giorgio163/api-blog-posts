@@ -14,6 +14,9 @@ use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Level;
 
 const APP_ROOT = __DIR__ . '/..';
 
@@ -89,6 +92,13 @@ $container->set(EntityManager::class, function (Container $c): EntityManager {
     );
 
     return EntityManager::create($settings['doctrine']['connection'], $config);
+});
+
+$container->set('logger', function () {
+    $logger = new Logger('api');
+    $logger->pushHandler(new StreamHandler(__DIR__ . '/../data/logs/error.log', level::Error));
+    $logger->pushHandler(new StreamHandler(__DIR__ . '/../data/logs/debug.log', level::Debug));
+    return $logger;
 });
 
 return $container;

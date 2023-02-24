@@ -29,6 +29,7 @@ An API application that lets the user create posts, categories, and the relation
 - Swagger: `composer require zircote/swagger-php`
 - Slugify: `composer require cocur/slugify`
 - `composer require --dev phpunit/phpunit ^9.5`
+- composer require monolog/monolog
 
 
 ### Remember to install PHPSTAN and codesniffer during the installation process in dev, if unable run the following:

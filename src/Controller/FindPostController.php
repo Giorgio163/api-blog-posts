@@ -25,19 +25,19 @@ class FindPostController
      *     path="/posts/{id}",
      *     description="Returns a Post by ID.",
      *     tags={"Posts"},
-     *      @OA\Parameter(
+     * @OA\Parameter(
      *         description="ID of Post to fetch",
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(
+     * @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="Post response",
-     *         @OA\JsonContent(ref="#/components/schemas/PostResponse")
+     * @OA\JsonContent(ref="#/components/schemas/PostResponse")
      *         )
      *     )
      * )

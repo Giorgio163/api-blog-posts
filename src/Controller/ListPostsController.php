@@ -24,12 +24,12 @@ class ListPostsController
      *     path="/posts/listAll",
      *     description="Returns all Posts.",
      *     tags={"Posts"},
-     *     @OA\Response(
+     * @OA\Response(
      *         response=200,
      *         description="Posts response",
-     *         @OA\JsonContent(
+     * @OA\JsonContent(
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/PostResponse")
+     * @OA\Items(ref="#/components/schemas/PostResponse")
      *         )
      *     )
      * )
@@ -41,7 +41,11 @@ class ListPostsController
         return $this->toJson($posts);
     }
 
-    /** @param Posts[] $posts */
+    /**
+     * 
+     *
+     * @param Posts[] $posts 
+     */
     private function toJson(array $posts): JsonResponse
     {
         $response = [];

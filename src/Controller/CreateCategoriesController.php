@@ -31,24 +31,24 @@ class CreateCategoriesController
      *     path="/categories/create",
      *     description="Create a new category",
      *     tags={"Categories"},
-     *     @OA\RequestBody(
+     * @OA\RequestBody(
      *         description="Category to be created",
      *         required=true,
-     *         @OA\MediaType(
+     * @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(
-     *                  @OA\Property(property="name", type="string", example="Example: Food"),
-     *                  @OA\Property(property="description", type="string", example="It is a food category"),
+     * @OA\Schema(
+     * @OA\Property(property="name",        type="string", example="Example: Food"),
+     * @OA\Property(property="description", type="string", example="It is a food category"),
      *      )
      *    )
      * ),
      * @OA\Response(
      *     response="200",
      *     description="The ID of the category",
-     *       @OA\MediaType(
+     * @OA\MediaType(
      *           mediaType="application/json",
-     *           @OA\Schema(
-     *              @OA\Property(property="id", type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
+     * @OA\Schema(
+     * @OA\Property(property="id",          type="string", example="115ec074-2a37-40ba-a51c-33d2efab684c"),
      *       )
      *     )
      *   )

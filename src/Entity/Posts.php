@@ -27,7 +27,6 @@ class Posts
         private string $thumbnail,
         #[ORM\Column(type: 'string', nullable: false)]
         private string $author,
-
     ) {
         $this->posted_at = new DateTimeImmutable('now');
     }
