@@ -2,12 +2,13 @@
 
 namespace Project4\Repository;
 
+use Doctrine\Common\Collections\Collection;
 use Project4\Entity\Posts;
 use Ramsey\Uuid\UuidInterface;
 
 interface PostsRepository
 {
-//    public function storePost(Posts $post): void;
+    public function getCategories(): Collection;
     public function store(Posts $posts): void;
     /**
      * 

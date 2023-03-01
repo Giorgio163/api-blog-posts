@@ -15,7 +15,7 @@ use Slim\Psr7\Response;
 use Project4\Repository\CategoriesRepository;
 use Project4\Repository\PostsRepository;
 
-class PostsCategoryController
+class CreatePostsCategoryController
 {
     private CategoriesRepository $categoriesRepository;
     private  PostsRepository $postsRepository;

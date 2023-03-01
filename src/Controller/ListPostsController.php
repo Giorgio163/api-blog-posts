@@ -3,6 +3,8 @@
 namespace Project4\Controller;
 
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
@@ -14,6 +16,10 @@ class ListPostsController
 {
     private PostsRepository $postsRepository;
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);
@@ -42,9 +48,9 @@ class ListPostsController
     }
 
     /**
-     * 
      *
-     * @param Posts[] $posts 
+     *
+     * @param Posts[] $posts
      */
     private function toJson(array $posts): JsonResponse
     {
@@ -57,7 +63,8 @@ class ListPostsController
                 'content' => $post->content(),
                 'thumbnail' => $post->thumbnail(),
                 'author' => $post->author(),
-                'posted_at' => $post->posted_at()
+                'posted_at' => $post->posted_at(),
+
             ];
         }
 

@@ -15,7 +15,7 @@ use Project4\Controller\ListAllPostsSlugController;
 use Project4\Controller\ListCategoriesController;
 use Project4\Controller\ListPostsController;
 use Project4\Controller\OpenApiController;
-use Project4\Controller\PostsCategoryController;
+use Project4\Controller\CreatePostsCategoryController;
 use Project4\Controller\UpdateCategoriesController;
 use Project4\Controller\UpdatePostController;
 use Project4\Factory\JwtMiddlewareFactory;
@@ -47,7 +47,7 @@ $app->get('/posts/listAll', new ListPostsController($container))->add(new OnlyAd
     ->add($authMiddleware);
 $app->get('/posts/listAllBySlug/{slug}', new ListAllPostsSlugController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
-$app->post('/posts/create', new PostsCategoryController($container))->add(new OnlyAdminMiddleware())
+$app->post('/posts/create', new CreatePostsCategoryController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
 $app->get('/posts/{id}', new FindPostController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);

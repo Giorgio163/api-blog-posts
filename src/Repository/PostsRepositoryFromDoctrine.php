@@ -2,6 +2,7 @@
 
 namespace Project4\Repository;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -14,17 +15,6 @@ class PostsRepositoryFromDoctrine implements PostsRepository
     public function __construct(private EntityManager $entityManager)
     {
     }
-
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
-//    public function storePost(Posts $post): void
-//    {
-//        $this->entityManager->persist($post);
-//        $this->entityManager->flush();
-//    }
-
 
     /**
      * 
@@ -108,4 +98,8 @@ class PostsRepositoryFromDoctrine implements PostsRepository
         $this->entityManager->flush();
     }
 
+    public function getCategories(): Collection
+    {
+        return $this->category;
+    }
 }

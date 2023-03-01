@@ -7,8 +7,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Project4\Repository\CategoriesRepository;
 use Project4\Repository\CategoriesRepositoryFromDoctrine;
-use Project4\Repository\TOBEDELETEDPostsCategoriesRepository;
-use Project4\Repository\TOBEDELETEDPostsCategoriesRepositoryFromDoctrine;
 use Project4\Repository\PostsRepositoryFromDoctrine;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Doctrine\UuidType;
