@@ -2,19 +2,20 @@
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Project4\Controller\CreateCategoriesController;
-use Project4\Controller\CreatePostsCategoriesController;
-use Project4\Controller\CreatePostsController;
+use Project4\Controller\TOBEDELETEDCreatePostsCategoriesController;
+use Project4\Controller\TOBEDELETEDCreatePostsController;
 use Project4\Controller\DeleteCategoriesController;
 use Project4\Controller\DeletePostController;
 use Project4\Controller\FindCategoriesController;
 use Project4\Controller\FindPostController;
-use Project4\Controller\FindPostsCategoriesController;
+use Project4\Controller\TOBEDELETEDFindPostsCategoriesController;
 use Project4\Controller\HomeController;
 use Project4\Controller\JwtController;
 use Project4\Controller\ListAllPostsSlugController;
 use Project4\Controller\ListCategoriesController;
 use Project4\Controller\ListPostsController;
 use Project4\Controller\OpenApiController;
+use Project4\Controller\PostsCategoryController;
 use Project4\Controller\UpdateCategoriesController;
 use Project4\Controller\UpdatePostController;
 use Project4\Factory\JwtMiddlewareFactory;
@@ -46,7 +47,7 @@ $app->get('/posts/listAll', new ListPostsController($container))->add(new OnlyAd
     ->add($authMiddleware);
 $app->get('/posts/listAllBySlug/{slug}', new ListAllPostsSlugController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
-$app->post('/posts/create', new CreatePostsController($container))->add(new OnlyAdminMiddleware())
+$app->post('/posts/create', new PostsCategoryController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
 $app->get('/posts/{id}', new FindPostController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
@@ -67,11 +68,6 @@ $app->delete('/categories/delete/{id}', new DeleteCategoriesController($containe
 $app->put('/categories/update/{id}', new UpdateCategoriesController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 
-// Routes PostsCategory
-$app->post('/PostsCategories/create', new CreatePostsCategoriesController($container))
-    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
-$app->get('/PostsCategories/{id_post}', new FindPostsCategoriesController($container))
-    ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 
 $customErrorHandler = new CustomErrorHandler($app);
 

@@ -7,8 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Project4\Repository\CategoriesRepository;
 use Project4\Repository\CategoriesRepositoryFromDoctrine;
-use Project4\Repository\PostsCategoriesRepository;
-use Project4\Repository\PostsCategoriesRepositoryFromDoctrine;
+use Project4\Repository\TOBEDELETEDPostsCategoriesRepository;
+use Project4\Repository\TOBEDELETEDPostsCategoriesRepositoryFromDoctrine;
 use Project4\Repository\PostsRepositoryFromDoctrine;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Doctrine\UuidType;
@@ -65,11 +65,6 @@ $container->set(PostsRepository::class, static function (Container $container) {
 $container->set(CategoriesRepository::class, static function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new CategoriesRepositoryFromDoctrine($entityManager);
-});
-
-$container->set(PostsCategoriesRepository::class, static function (Container $container) {
-    $entityManager = $container->get(EntityManager::class);
-    return new PostsCategoriesRepositoryFromDoctrine($entityManager);
 });
 
 $container->set(EntityManager::class, function (Container $c): EntityManager {

@@ -6,7 +6,7 @@ An API application that lets the user create posts, categories, and the relation
 ## Instructions for installation
 
 - Clone repository: `https://gitlab.com/TiPhOoN/php4.api.project.git`
-- Create the DB: `php cli/create-db.php`
+- Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
 - Install the composer dependencies: `composer install`
 - Configure the environment: `cp .env.example .env`
 - Add your configuration to the `.env` file

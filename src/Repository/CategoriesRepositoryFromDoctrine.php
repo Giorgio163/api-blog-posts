@@ -66,4 +66,12 @@ class CategoriesRepositoryFromDoctrine implements CategoriesRepository
             ->getQuery();
         $query->execute();
     }
+
+    public function category($categoryId): Categories
+    {
+        return $this
+            ->entityManager
+            ->getRepository(Categories::class)
+            ->findOneBy(['id' => $categoryId]);
+    }
 }

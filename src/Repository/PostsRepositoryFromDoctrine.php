@@ -5,9 +5,9 @@ namespace Project4\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use PDO;
 use Project4\Entity\Posts;
 use Ramsey\Uuid\UuidInterface;
+
 
 class PostsRepositoryFromDoctrine implements PostsRepository
 {
@@ -19,11 +19,11 @@ class PostsRepositoryFromDoctrine implements PostsRepository
      * @throws OptimisticLockException
      * @throws ORMException
      */
-    public function storePost(Posts $post): void
-    {
-        $this->entityManager->persist($post);
-        $this->entityManager->flush();
-    }
+//    public function storePost(Posts $post): void
+//    {
+//        $this->entityManager->persist($post);
+//        $this->entityManager->flush();
+//    }
 
 
     /**
@@ -98,4 +98,14 @@ class PostsRepositoryFromDoctrine implements PostsRepository
             ->getRepository(Posts::class)
             ->findBy(['slug' => $slug]);
     }
+
+    /**
+     * @throws ORMException
+     */
+    public function store(Posts $posts): void
+    {
+        $this->entityManager->persist($posts);
+        $this->entityManager->flush();
+    }
+
 }

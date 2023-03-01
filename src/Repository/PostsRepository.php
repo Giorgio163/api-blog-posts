@@ -7,7 +7,8 @@ use Ramsey\Uuid\UuidInterface;
 
 interface PostsRepository
 {
-    public function storePost(Posts $post): void;
+//    public function storePost(Posts $post): void;
+    public function store(Posts $posts): void;
     /**
      * 
      *
