@@ -2,22 +2,33 @@
 
 An API application that lets the user create posts, categories, and the relation between posts categories. The Application uses the full OOP paradigms. The Application is having routes to create, read, update, and delete posts and Categories
 
-## Getting started
-## App Routes
+## The design patterns used in this project are:
 
-## JWT
+- Fluent Interface:
+  is used to define class methods/properties in a way that they are easy to read/follow just like a plain sentence in natural language.
+- Dependency Injection:
+  is a software design approach that allows avoiding hard-coding dependencies and makes it possible to change the dependencies both at runtime and compile time.
+- Model-View-Controller (MVC):
+ Is a software architectural pattern commonly used for developing user interfaces that divide the related program logic into three interconnected elements. This is done to separate internal representations of information from the ways information is presented to and accepted from the user.
+- Repository:
+  A repository represents an architectural layer that handles communication between the application and data source. It is a widely used pattern whose main point is that the application does not have to know which data source is implemented and how it is implemented.
+
+## Getting started
+App Routes
+
+### JWT:
 
 - [POST] /jwt
 
-## Home
+### Home:
 
 - [GET] /
 
-## OpenApi
+### OpenApi:
 
 - [GET] /apidocs
 
-## Posts
+### Posts:
 
 - [POST] /posts/create
 - [GET] /posts/listAll
@@ -26,7 +37,7 @@ An API application that lets the user create posts, categories, and the relation
 - [PUT] /post/update/{id}
 - [DELETE] /post/delete/{id}
 
-## Categories
+### Categories:
 
 - [POST] /categories/create
 - [GET] /categories/listAllCategories
@@ -34,7 +45,7 @@ An API application that lets the user create posts, categories, and the relation
 - [PUT] /categories/update/{id}
 - [DELETE] /categories/delete/{id}
 
-## Instructions for installation
+## Instructions for installation:
 
 - Clone repository: `https://gitlab.com/TiPhOoN/php4.api.project.git`
 - Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
@@ -47,7 +58,7 @@ An API application that lets the user create posts, categories, and the relation
 - php vendor/bin/phpunit test/ --colors
 
 
-## Required
+## Required:
 
 - Slim Framework: `composer require slim/slim:"4.*"`,
 -  `composer require slim/psr7`,
@@ -56,22 +67,23 @@ An API application that lets the user create posts, categories, and the relation
 -  `composer require laminas/laminas-diactoros`,
 -  `composer require php-di/slim-bridge`
 - Ramsey Uuid: `composer require ramsey/uuid`
+- Ramsey Uuid/Doctrine: `composer require ramsey/uuid-doctrine`
+- Monolog: `composer require monolog/monolog`
+- JWT: `composer require firebase/php-jwt`
 - Dotenv: `composer require vlucas/phpdotenv`
 - Swagger: `composer require zircote/swagger-php`
 - Slugify: `composer require cocur/slugify`
-- `composer require --dev phpunit/phpunit ^9.5`
 - composer require monolog/monolog
-
+- PHP Unit: `composer require --dev phpunit/phpunit ^9`
+- Doctrine ORM: `composer require doctrine/orm`
+- Doctrine Annotations: `composer require doctrine/annotations`
+- Symfony Cache: `composer require symfony/cache`
 
 ### Remember to install PHPSTAN and codesniffer during the installation process in dev, if unable run the following:
 
 - PHP Stan: `composer require --dev phpstan/phpstan`
 - PHP Code Sniffer: `composer require squizlabs/php_codesniffer`
 
-# To run the application;
-
-- `http://localhost:????/apidocs`
-
-#### Use the following link for the images 
+#### Use the following link for the images:
 
 - `https://www.base64encoder.io/image-to-base64-converter/`

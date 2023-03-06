@@ -6,7 +6,6 @@ use Cocur\Slugify\Slugify;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
-use http\Exception\BadMessageException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Posts;
@@ -77,6 +76,7 @@ class CreatePostsCategoryController
             true, 512, JSON_THROW_ON_ERROR
         );
 
+        CategoryValidator::validateCategoryId($jsonParams['categoryId']);
         PostValidator::validate($jsonParams);
         $slugify = new Slugify();
         $slug = $slugify->slugify($jsonParams['title']);
@@ -91,6 +91,7 @@ class CreatePostsCategoryController
         );
 
         foreach ($jsonParams['categoryId'] as $categoryId) {
+            $this->categoriesRepository->findCategory(Uuid::fromString($categoryId));
             $category = $this->categoriesRepository->category($categoryId);
             $post->addCategory($category);
         }

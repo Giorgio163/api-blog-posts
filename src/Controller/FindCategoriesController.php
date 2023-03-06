@@ -41,7 +41,7 @@ class FindCategoriesController
      *     ),
      * @OA\Response(
      *         response=200,
-     *         description="Post response",
+     *         description="Category response",
      * @OA\JsonContent(ref="#/components/schemas/CategoryResponse")
      *         )
      *     )
@@ -51,6 +51,6 @@ class FindCategoriesController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $category = $this->categoriesRepository->findCategory(Uuid::fromString($args['id']));
-        return new JsonResponse(CategoryResponse::fromCategory($category));
+        return new JsonResponse($category->toArray(), 200);
     }
 }

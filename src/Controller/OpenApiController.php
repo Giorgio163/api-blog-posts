@@ -9,7 +9,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Info(title="Module 5 Project", version="2.0")
+ * @OA\Info(title="Module               5 Project", version="2.0")
  * @OA\OpenApi(security={{"bearerAuth": {}}})
  * @OA\SecurityScheme(
  *      securityScheme="bearerAuth",

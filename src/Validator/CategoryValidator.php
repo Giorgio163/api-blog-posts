@@ -32,4 +32,17 @@ class CategoryValidator
             throw InvalidDataException::fromErrors($errors);
         }
     }
+    public static function validateCategoryId(array $jsonParams): void
+    {
+        $errors = [];
+
+        foreach ($jsonParams as $id){
+            if (trim($id) === '') {
+                $errors[] = 'Category Id should not be empty';
+            }
+        }
+        if (count($errors) > 0) {
+            throw InvalidDataException::fromErrors($errors);
+        }
+    }
 }

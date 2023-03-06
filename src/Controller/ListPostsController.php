@@ -54,20 +54,13 @@ class ListPostsController
      */
     private function toJson(array $posts): JsonResponse
     {
-        $response = [];
-        foreach ($posts as $post) {
-            $response[] = [
-                'id' => $post->id()->toString(),
-                'title' => $post->title(),
-                'slug' => $post->slug(),
-                'content' => $post->content(),
-                'thumbnail' => $post->thumbnail(),
-                'author' => $post->author(),
-                'posted_at' => $post->posted_at(),
-                'categories' => $post->getCategories()
-            ];
+
+        $categoryResponse = [];
+
+        foreach ($posts as $post){
+            $categoryResponse[] = $post->toArray();
         }
 
-        return new JsonResponse($response);
+        return new JsonResponse($categoryResponse);
     }
 }
