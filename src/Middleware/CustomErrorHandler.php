@@ -45,6 +45,10 @@ class CustomErrorHandler
 
         return $response->withStatus($payload['status_code']);
     }
+
+    /**
+     * @throws \JsonException
+     */
     private function getPayload(Throwable $exception): array
     {
         if ($exception instanceof InvalidDataException) {

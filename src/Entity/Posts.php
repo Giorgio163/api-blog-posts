@@ -115,6 +115,11 @@ class Posts
 
     public function toArray(): array
     {
+        $categories = [];
+        foreach ($this->getCategories() as $category) {
+            $categories[] = $category->toArray();
+        }
+
         return [
             'id' => $this->id(),
             'title' => $this->title(),
@@ -122,7 +127,7 @@ class Posts
             'content' => $this->content(),
             'thumbnail' => $this->thumbnail(),
             'author' => $this->author(),
-            'categories' => $this->getCategories()
+            'categories' => $categories
         ];
     }
 }

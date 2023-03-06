@@ -6,7 +6,9 @@ use DI\NotFoundException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use http\Exception\BadMessageException;
 use Project4\Entity\Categories;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class CategoriesRepositoryFromDoctrine implements CategoriesRepository
@@ -84,8 +86,13 @@ class CategoriesRepositoryFromDoctrine implements CategoriesRepository
         $query->execute();
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function category($categoryId): Categories
     {
+        $this->findCategory(Uuid::fromString($categoryId));
+
         return $this
             ->entityManager
             ->getRepository(Categories::class)

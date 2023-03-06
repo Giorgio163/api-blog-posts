@@ -6,9 +6,11 @@ use Cocur\Slugify\Slugify;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
+use http\Exception\BadMessageException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Posts;
+use Project4\Validator\CategoryValidator;
 use Project4\Validator\PostValidator;
 use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
@@ -90,9 +92,6 @@ class CreatePostsCategoryController
 
         foreach ($jsonParams['categoryId'] as $categoryId) {
             $category = $this->categoriesRepository->category($categoryId);
-            if ($category == null) {
-                throw new \InvalidArgumentException('Category not found');
-            }
             $post->addCategory($category);
         }
 

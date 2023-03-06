@@ -54,7 +54,6 @@ class ListPostsController
      */
     private function toJson(array $posts): JsonResponse
     {
-
         $response = [];
         foreach ($posts as $post) {
             $response[] = [

@@ -8,7 +8,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Laminas\Diactoros\Response\JsonResponse;
+use Project4\Entity\Categories;
 use Project4\Entity\Posts;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 
@@ -105,11 +107,11 @@ class PostsRepositoryFromDoctrine implements PostsRepository
 
     /**
      * @throws ORMException
+     * @throws \Exception
      */
     public function store(Posts $posts): void
     {
         $this->entityManager->persist($posts);
         $this->entityManager->flush();
     }
-
 }
