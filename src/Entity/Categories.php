@@ -12,6 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 class Categories
 {
     #[ORM\ManyToMany(targetEntity: Posts::class, mappedBy: 'category')]
+    #[ORM\JoinTable(name:"posts_categories")]
     private Collection $posts;
 
     public function __construct(
@@ -66,7 +67,7 @@ class Categories
         return $this;
     }
 
-    public function removeBookmark(Posts $posts): self
+    public function removeCategory(Posts $posts): self
     {
         if ($this->posts->removeElement($posts)) {
             $posts->removeCategory($this);

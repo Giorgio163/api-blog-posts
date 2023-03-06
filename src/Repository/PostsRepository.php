@@ -8,7 +8,6 @@ use Ramsey\Uuid\UuidInterface;
 
 interface PostsRepository
 {
-    public function getCategories(): Collection;
     public function store(Posts $posts): void;
     /**
      * 
@@ -17,7 +16,7 @@ interface PostsRepository
      */
     public function findAll(): array;
     public function find(UuidInterface $id): Posts;
-    public function delete(UuidInterface $id): string;
+    public function delete(UuidInterface $id): Posts;
     public function update(UuidInterface $id, array $data): void;
     public function findBySlug($slug): array;
 }

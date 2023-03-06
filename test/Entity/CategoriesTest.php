@@ -8,13 +8,13 @@ use Ramsey\Uuid\Uuid;
 
 class CategoriesTest extends TestCase
 {
-    public function testPosts()
+    public function testPosts(): void
     {
         $categories = new Categories(Uuid::uuid4(), 'Food', 'its a food category');
         self::assertInstanceOf(Categories::class, $categories);
     }
 
-    public function testCreatePosts()
+    public function testCreatePosts(): void
     {
         $id = Uuid::uuid4();
         $name = 'Food';

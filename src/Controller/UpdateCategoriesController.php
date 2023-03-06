@@ -53,10 +53,11 @@ class UpdateCategoriesController
      *         description="The ID of the Category"
      *     )
      * )
+     * @throws                                                         \JsonException
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $data = json_decode($request->getBody()->getContents(), true);
+        $data = json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         CategoryValidator::validate($data);
 

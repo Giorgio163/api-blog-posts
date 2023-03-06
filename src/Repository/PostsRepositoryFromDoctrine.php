@@ -2,10 +2,12 @@
 
 namespace Project4\Repository;
 
+use DI\NotFoundException;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use Laminas\Diactoros\Response\JsonResponse;
 use Project4\Entity\Posts;
 use Ramsey\Uuid\UuidInterface;
 
@@ -35,47 +37,59 @@ class PostsRepositoryFromDoctrine implements PostsRepository
      */
     public function find(UuidInterface $id): Posts
     {
-        return $this
+        $res = $this
             ->entityManager
             ->getRepository(Posts::class)
             ->findOneBy(['id' => $id]);
+
+        if ($res === null) {
+            throw new NotFoundException('Warning Post ID not found!');
+        }else {
+            return $res;
+        }
     }
 
     /**
      * @throws OptimisticLockException
      * @throws ORMException
+     * @throws \Exception
      */
-    public function delete(UuidInterface $id): string
+    public function delete(UuidInterface $id): Posts
     {
-        $post = $this->entityManager->getReference('Project4\Entity\Posts', $id);
+        $post = $this->find($id);
+
         $this->entityManager->remove($post);
         $this->entityManager->flush();
-        return $id;
+        return $post;
     }
 
     /**
      * @throws ORMException
+     * @throws NotFoundException
+     * @throws \Exception
      */
     public function update(UuidInterface $id, array $data): void
     {
+        $this->find($id);
+
         $post = $this->entityManager->createQueryBuilder();
-        $query = $post->update('Project4\Entity\Posts', 'p')
-            ->set('p.title', ':title')
-            ->set('p.slug', ':slug')
-            ->set('p.content', ':content')
-            ->set('p.thumbnail', ':thumbnail')
-            ->set('p.author', ':author')
-            ->set('p.posted_at', ':posted_at')
-            ->where('p.id = :id')
-            ->setParameter('title', $data['title'])
-            ->setParameter('slug', $data['slug'])
-            ->setParameter('content', $data['content'])
-            ->setParameter('thumbnail', $data['thumbnail'])
-            ->setParameter('author', $data['author'])
-            ->setParameter('posted_at', $data['posted_at'])
-            ->setParameter('id', $id)
-            ->getQuery();
-        $query->execute();
+            $query = $post->update(Posts::class, 'p')
+                ->set('p.title', ':title')
+                ->set('p.slug', ':slug')
+                ->set('p.content', ':content')
+                ->set('p.thumbnail', ':thumbnail')
+                ->set('p.author', ':author')
+                ->set('p.posted_at', ':posted_at')
+                ->where('p.id = :id')
+                ->setParameter('title', $data['title'])
+                ->setParameter('slug', $data['slug'])
+                ->setParameter('content', $data['content'])
+                ->setParameter('thumbnail', $data['thumbnail'])
+                ->setParameter('author', $data['author'])
+                ->setParameter('posted_at', $data['posted_at'])
+                ->setParameter('id', $id)
+                ->getQuery();
+            $query->execute();
     }
 
     /**
@@ -98,8 +112,4 @@ class PostsRepositoryFromDoctrine implements PostsRepository
         $this->entityManager->flush();
     }
 
-    public function getCategories(): Collection
-    {
-        return $this->category;
-    }
 }

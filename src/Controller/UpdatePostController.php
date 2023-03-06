@@ -57,17 +57,18 @@ class UpdatePostController
      *         description="The ID of the Post"
      *     )
      * )
+     * @throws                                               \JsonException
      */
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $inputs = json_decode($request->getBody()->getContents(), true);
+        $inputs = json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         PostValidator::validate($inputs);
 
         $slugify = new Slugify();
         $slug = $slugify->slugify($inputs['title']);
 
-        $id = uniqid();
+        $id = uniqid('', true);
         $b64 = $inputs['thumbnail'];
         file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
 

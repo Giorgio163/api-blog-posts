@@ -3,6 +3,8 @@
 namespace Project4\Controller;
 
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use PDOException;
@@ -15,6 +17,10 @@ class DeleteCategoriesController
 {
     private CategoriesRepository $categoriesRepository;
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function __construct(Container $container)
     {
         $this->categoriesRepository = $container->get(CategoriesRepository::class);

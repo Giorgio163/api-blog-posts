@@ -3,6 +3,37 @@
 An API application that lets the user create posts, categories, and the relation between posts categories. The Application uses the full OOP paradigms. The Application is having routes to create, read, update, and delete posts and Categories
 
 ## Getting started
+## App Routes
+
+## JWT
+
+- [POST] /jwt
+
+## Home
+
+- [GET] /
+
+## OpenApi
+
+- [GET] /apidocs
+
+## Posts
+
+- [POST] /posts/create
+- [GET] /posts/listAll
+- [GET] /posts/{id}
+- [GET] /posts/listAllBySlug/{slug}
+- [PUT] /post/update/{id}
+- [DELETE] /post/delete/{id}
+
+## Categories
+
+- [POST] /categories/create
+- [GET] /categories/listAllCategories
+- [GET] /categories/{id}
+- [PUT] /categories/update/{id}
+- [DELETE] /categories/delete/{id}
+
 ## Instructions for installation
 
 - Clone repository: `https://gitlab.com/TiPhOoN/php4.api.project.git`

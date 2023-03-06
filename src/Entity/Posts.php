@@ -15,6 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 class Posts
 {
     #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'posts')]
+    #[ORM\JoinTable(name:"posts_categories")]
     private Collection $category;
 
     #[ORM\Column(name: 'posted_at', type: 'datetimetz_immutable', nullable: false)]
@@ -33,8 +34,7 @@ class Posts
         private string        $thumbnail,
         #[ORM\Column(type: 'string', nullable: false)]
         private string        $author,
-    )
-    {
+    ) {
         $this->posted_at = new DateTimeImmutable('now');
         $this->category = new ArrayCollection();
     }
@@ -86,9 +86,6 @@ class Posts
 
     public function posted_at(): DateTimeImmutable
     {
-        if (is_string($this->posted_at)) {
-            return new DateTimeImmutable('now');
-        }
         return $this->posted_at;
     }
 
@@ -118,11 +115,6 @@ class Posts
 
     public function toArray(): array
     {
-        $categories = [];
-        foreach ($this->getCategories() as $category) {
-            $categories[] = $category->toArray();
-        }
-
         return [
             'id' => $this->id(),
             'title' => $this->title(),
@@ -130,7 +122,7 @@ class Posts
             'content' => $this->content(),
             'thumbnail' => $this->thumbnail(),
             'author' => $this->author(),
-            'categories' => $categories
+            'categories' => $this->getCategories()
         ];
     }
 }

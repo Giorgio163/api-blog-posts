@@ -5,7 +5,7 @@ use InvalidArgumentException;
 
 class InvalidDataException extends InvalidArgumentException
 {
-    private $errors = [];
+    private array $errors = [];
 
     public function getDataErrors(): array
     {

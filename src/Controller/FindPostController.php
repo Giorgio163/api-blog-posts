@@ -3,11 +3,12 @@
 namespace Project4\Controller;
 
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Repository\PostsRepository;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
@@ -15,6 +16,10 @@ class FindPostController
 {
     private PostsRepository $postsRepository;
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);
@@ -46,6 +51,7 @@ class FindPostController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $post = $this->postsRepository->find(Uuid::fromString($args['id']));
-        return new JsonResponse(PostsResponse::fromPost($post));
+
+        return new JsonResponse($post->toArray(), 201);
     }
 }

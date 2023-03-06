@@ -54,6 +54,7 @@ class ListPostsController
      */
     private function toJson(array $posts): JsonResponse
     {
+
         $response = [];
         foreach ($posts as $post) {
             $response[] = [
@@ -64,7 +65,7 @@ class ListPostsController
                 'thumbnail' => $post->thumbnail(),
                 'author' => $post->author(),
                 'posted_at' => $post->posted_at(),
-
+                'categories' => $post->getCategories()
             ];
         }
 

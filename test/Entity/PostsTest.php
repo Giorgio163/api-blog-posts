@@ -8,14 +8,14 @@ use Ramsey\Uuid\Uuid;
 
 class PostsTest extends TestCase
 {
-    public function testPosts()
+    public function testPosts(): void
     {
         $posts = new Posts(Uuid::uuid4(), 'PHP COURSE', 'php-course', 'its a test',
             'http://localhost:8888/images/63f5fd262a855.jpg', 'Giorgio Selmi');
         self::assertInstanceOf(Posts::class, $posts);
     }
 
-    public function testCreatePosts()
+    public function testCreatePosts(): void
     {
         $id = Uuid::uuid4();
         $title = 'PHP COURSE';

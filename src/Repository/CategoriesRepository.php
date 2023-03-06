@@ -15,7 +15,7 @@ interface CategoriesRepository
      */
     public function findAllCategories(): array;
     public function findCategory(UuidInterface $id): Categories;
-    public function deleteCategory(UuidInterface $id): string;
+    public function deleteCategory(UuidInterface $id): Categories;
     public function updateCategory(UuidInterface $id, array $data): void;
     public function category($categoryId): Categories;
 }

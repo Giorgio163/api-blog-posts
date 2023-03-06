@@ -2,9 +2,10 @@
 
 namespace Project4\Controller;
 
-use _PHPStan_4dd92cd93\Symfony\Component\String\Slugger\SluggerInterface;
 use Cocur\Slugify\Slugify;
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Posts;
@@ -16,6 +17,10 @@ class ListAllPostsSlugController
 {
     private PostsRepository $postsRepository;
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function __construct(Container $container)
     {
         $this->postsRepository = $container->get(PostsRepository::class);

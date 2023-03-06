@@ -2,11 +2,11 @@
 
 namespace Project4\Middleware;
 
+use DI\NotFoundException;
 use Monolog\Logger;
 use Project4\Exception\InvalidDataException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 use Throwable;
 use Slim\Psr7\Request;
@@ -25,6 +25,9 @@ class CustomErrorHandler
         $this->logger = $this->app->getContainer()->get('logger');
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function __invoke(
         Request $request,
         Throwable $exception,
@@ -32,16 +35,12 @@ class CustomErrorHandler
         bool $logErrors,
         bool $logErrorDetails,
         ?LoggerInterface $logger = null
-    ): ResponseInterface {
+    ) {
         $payload = $this->getPayload($exception);
-
-        if ($displayErrorDetails) {
-            $payload['details'] = $exception->getMessage();
-        }
 
         $response = $this->app->getResponseFactory()->createResponse();
         $response->getBody()->write(
-            json_encode($payload, JSON_UNESCAPED_UNICODE)
+            json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
         );
 
         return $response->withStatus($payload['status_code']);
@@ -49,6 +48,7 @@ class CustomErrorHandler
     private function getPayload(Throwable $exception): array
     {
         if ($exception instanceof InvalidDataException) {
+            $this->logger->debug(json_encode($exception->getDataErrors(), JSON_THROW_ON_ERROR));
             return [
                 'errors' => $exception->getDataErrors(),
                 'code' => 'validation_exception',
@@ -56,10 +56,20 @@ class CustomErrorHandler
                 'status_code' => 400,
             ];
         }
+
+        if ($exception instanceof NotFoundException) {
+            $this->logger->debug(json_encode($exception->getMessage(), JSON_THROW_ON_ERROR));
+            return [
+                'errors' => $exception->getMessage(),
+                'code' => 'not found exception',
+                'status_code' => 404,
+            ];
+        }
+        $this->logger->error($exception->getMessage());
         return [
-            'error' => 'Oops... Something went wrong, please try again later.',
-            'code' => 'internal_error',
-            'status_code' => 500,
+            'error' => $exception->getMessage(),
+            'code' => 'internal server error',
+            'status_code' =>  500,
         ];
     }
 }

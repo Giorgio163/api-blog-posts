@@ -26,6 +26,7 @@ class CreateCategoriesController
     {
         $this->categoriesRepository = $container->get(CategoriesRepository::class);
     }
+
     /**
      * @OA\Post(
      *     path="/categories/create",
@@ -53,11 +54,12 @@ class CreateCategoriesController
      *     )
      *   )
      * )
+     * @throws                              \JsonException
      */
 
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
-        $inputs = json_decode($request->getBody()->getContents(), true);
+        $inputs = json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         CategoryValidator::validate($inputs);
 

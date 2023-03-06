@@ -2,6 +2,7 @@
 
 namespace Project4\Repository;
 
+use DI\NotFoundException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -33,30 +34,46 @@ class CategoriesRepositoryFromDoctrine implements CategoriesRepository
             ->findAll();
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function findCategory(UuidInterface $id): Categories
     {
-        return $this
+        $res = $this
             ->entityManager
             ->getRepository(Categories::class)
             ->findOneBy(['id' => $id]);
+        if ($res === null) {
+            throw new NotFoundException('Warning Category ID not found!');
+        }else {
+            return $res;
+        }
     }
 
     /**
      * @throws OptimisticLockException
      * @throws ORMException
+     * @throws NotFoundException
      */
-    public function deleteCategory(UuidInterface $id): string
+    public function deleteCategory(UuidInterface $id): Categories
     {
-        $category = $this->entityManager->getReference('Project4\Entity\Categories', $id);
+        $category = $this->findCategory($id);
+
         $this->entityManager->remove($category);
         $this->entityManager->flush();
-        return $id;
+        return $category;
+
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function updateCategory(UuidInterface $id, array $data): void
     {
+        $this->findCategory($id);
+
         $category = $this->entityManager->createQueryBuilder();
-        $query = $category->update('Project4\Entity\Categories', 'c')
+        $query = $category->update(Categories::class, 'c')
             ->set('c.name', ':name')
             ->set('c.description', ':description')
             ->where('c.id = :id')
