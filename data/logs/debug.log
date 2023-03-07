@@ -1,7 +1,0 @@
-[2023-03-07T10:14:58.691893+01:00] api.ERROR: Call to a member function toArray() on array [] []
-[2023-03-07T11:41:16.929430+01:00] api.DEBUG: ["Category Id should not be empty"] [] []
-[2023-03-07T11:56:52.426213+01:00] api.ERROR: Invalid UUID string: 1 [] []
-[2023-03-07T11:59:21.714924+01:00] api.DEBUG: ["Category Id should not be empty"] [] []
-[2023-03-07T12:05:29.334121+01:00] api.DEBUG: ["Category Id: [1] needs to be a UUID"] [] []
-[2023-03-07T12:06:01.378186+01:00] api.DEBUG: ["Category Id: [Gianni] needs to be a UUID"] [] []
-[2023-03-07T12:06:09.998457+01:00] api.DEBUG: ["Category Id should not be empty"] [] []

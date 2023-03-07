@@ -52,20 +52,12 @@ class ListAllPostsSlugController
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $posts = $this->postsRepository->findBySlug($args['slug']);
-        return $this->toJson($posts);
-    }
 
-    /**
-     *
-     *
-     * @param Posts[] $posts
-     */
-    private function toJson(array $posts): JsonResponse
-    {
-        $postsCategories = [];
+        $postCategory = [];
+
         foreach ($posts as $post) {
-            $postsCategories[] = $post->toArray();
+            $postCategory [] = $post->toArray();
         }
-        return new JsonResponse($postsCategories);
+        return new JsonResponse($postCategory);
     }
 }
