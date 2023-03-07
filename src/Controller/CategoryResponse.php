@@ -2,7 +2,6 @@
 
 namespace Project4\Controller;
 
-
 use OpenApi\Annotations as OA;
 use Project4\Entity\Categories;
 
@@ -15,21 +14,21 @@ class CategoryResponse
 {
     public function __construct(
         /**
-         * 
          *
-         * @OA\Property(property="id", type="string", example="e8f69951-8a11-4a99-9129-09bfd24e9edc") 
+         *
+         * @OA\Property(property="id", type="string", example="e8f69951-8a11-4a99-9129-09bfd24e9edc")
          */
         public readonly string $id,
         /**
-         * 
          *
-         * @OA\Property(property="name", type="string", example="Example: Food") 
+         *
+         * @OA\Property(property="name", type="string", example="Example: Food")
          */
         public readonly string $name,
         /**
-         * 
          *
-         * @OA\Property(property="description", type="string", example="It is about food") 
+         *
+         * @OA\Property(property="description", type="string", example="It is about food")
          */
         public readonly string $description,
     ) {

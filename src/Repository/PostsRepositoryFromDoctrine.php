@@ -3,16 +3,11 @@
 namespace Project4\Repository;
 
 use DI\NotFoundException;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Laminas\Diactoros\Response\JsonResponse;
-use Project4\Entity\Categories;
 use Project4\Entity\Posts;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-
 
 class PostsRepositoryFromDoctrine implements PostsRepository
 {
@@ -21,7 +16,7 @@ class PostsRepositoryFromDoctrine implements PostsRepository
     }
 
     /**
-     * 
+     *
      *
      * @return Posts[]
      * @throws \Exception
@@ -46,7 +41,7 @@ class PostsRepositoryFromDoctrine implements PostsRepository
 
         if ($res === null) {
             throw new NotFoundException('Warning Post ID not found!');
-        }else {
+        } else {
             return $res;
         }
     }
@@ -81,14 +76,14 @@ class PostsRepositoryFromDoctrine implements PostsRepository
                 ->set('p.content', ':content')
                 ->set('p.thumbnail', ':thumbnail')
                 ->set('p.author', ':author')
-                ->set('p.posted_at', ':posted_at')
+                ->set('p.postedAt', ':postedAt')
                 ->where('p.id = :id')
                 ->setParameter('title', $data['title'])
                 ->setParameter('slug', $data['slug'])
                 ->setParameter('content', $data['content'])
                 ->setParameter('thumbnail', $data['thumbnail'])
                 ->setParameter('author', $data['author'])
-                ->setParameter('posted_at', $data['posted_at'])
+                ->setParameter('postedAt', $data['postedAt'])
                 ->setParameter('id', $id)
                 ->getQuery();
             $query->execute();

@@ -10,9 +10,9 @@ interface PostsRepository
 {
     public function store(Posts $posts): void;
     /**
-     * 
      *
-     * @return Posts[] 
+     *
+     * @return Posts[]
      */
     public function findAll(): array;
     public function find(UuidInterface $id): Posts;

@@ -3,6 +3,7 @@
 namespace Project4\Validator;
 
 use Project4\Exception\InvalidDataException;
+use Ramsey\Uuid\Uuid;
 
 class CategoryValidator
 {
@@ -36,9 +37,11 @@ class CategoryValidator
     {
         $errors = [];
 
-        foreach ($jsonParams as $id){
+        foreach ($jsonParams as $id) {
             if (trim($id) === '') {
                 $errors[] = 'Category Id should not be empty';
+            } elseif (! Uuid::isValid($id)) {
+                $errors[] = "Category Id: [$id] needs to be a UUID";
             }
         }
         if (count($errors) > 0) {

@@ -56,25 +56,16 @@ class ListAllPostsSlugController
     }
 
     /**
-     * 
      *
-     * @param Posts[] $posts 
+     *
+     * @param Posts[] $posts
      */
     private function toJson(array $posts): JsonResponse
     {
-        $response = [];
+        $postsCategories = [];
         foreach ($posts as $post) {
-            $response[] = [
-                'id' => $post->id()->toString(),
-                'title' => $post->title(),
-                'slug' => $post->slug(),
-                'content' => $post->content(),
-                'thumbnail' => $post->thumbnail(),
-                'author' => $post->author(),
-                'posted_at' => $post->posted_at()
-            ];
+            $postsCategories[] = $post->toArray();
         }
-
-        return new JsonResponse($response);
+        return new JsonResponse($postsCategories);
     }
 }

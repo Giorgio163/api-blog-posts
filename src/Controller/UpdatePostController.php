@@ -70,7 +70,7 @@ class UpdatePostController
 
         $id = uniqid('', true);
         $b64 = $inputs['thumbnail'];
-        file_put_contents('images/'. $id . '.jpg', base64_decode($b64));
+        file_put_contents('images/' . $id . '.jpg', base64_decode($b64));
 
         $data = [
             'title' => $inputs['title'],
@@ -78,7 +78,7 @@ class UpdatePostController
             'content' => $inputs['content'],
             'thumbnail' => $this->base . '/images/' . $id . '.jpg',
             'author' => $inputs['author'],
-            'posted_at' => new DateTimeImmutable('now')
+            'postedAt' => new DateTimeImmutable('now')
         ];
 
         $this->postsRepository->update(Uuid::fromString($args['id']), $data);

@@ -57,7 +57,7 @@ class ListPostsController
 
         $categoryResponse = [];
 
-        foreach ($posts as $post){
+        foreach ($posts as $post) {
             $categoryResponse[] = $post->toArray();
         }
 

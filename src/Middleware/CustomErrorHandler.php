@@ -2,6 +2,7 @@
 
 namespace Project4\Middleware;
 
+use Cassandra\Exception\UnauthorizedException;
 use DI\NotFoundException;
 use Monolog\Logger;
 use Project4\Exception\InvalidDataException;
@@ -69,6 +70,7 @@ class CustomErrorHandler
                 'status_code' => 404,
             ];
         }
+
         $this->logger->error($exception->getMessage());
         return [
             'error' => $exception->getMessage(),

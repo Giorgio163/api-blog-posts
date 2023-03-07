@@ -1,6 +1,7 @@
 <?php
 
 namespace Project4\Exception;
+
 use InvalidArgumentException;
 
 class InvalidDataException extends InvalidArgumentException

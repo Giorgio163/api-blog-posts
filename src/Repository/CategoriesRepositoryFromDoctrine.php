@@ -47,7 +47,7 @@ class CategoriesRepositoryFromDoctrine implements CategoriesRepository
             ->findOneBy(['id' => $id]);
         if ($res === null) {
             throw new NotFoundException('Warning Category ID not found!');
-        }else {
+        } else {
             return $res;
         }
     }
@@ -64,7 +64,6 @@ class CategoriesRepositoryFromDoctrine implements CategoriesRepository
         $this->entityManager->remove($category);
         $this->entityManager->flush();
         return $category;
-
     }
 
     /**

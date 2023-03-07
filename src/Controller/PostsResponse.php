@@ -1,6 +1,7 @@
 <?php
 
 namespace Project4\Controller;
+
 use Doctrine\Common\Collections\Collection;
 use OpenApi\Annotations as OA;
 use Project4\Entity\Posts;
@@ -53,9 +54,9 @@ class PostsResponse
         /**
          *
          *
-         * @OA\Property(property="posted_at", type="string", example="2023-01-20 13:56:00")
+         * @OA\Property(property="postedAt", type="string", example="2023-01-20 13:56:00")
          */
-        public readonly ?string  $posted_at,
+        public readonly ?string $postedAt,
         public readonly Collection $category,
     ) {
     }
@@ -69,7 +70,7 @@ class PostsResponse
             $post->content(),
             $post->thumbnail(),
             $post->author(),
-            $post->posted_at()->format('Y-m-d H:i:s'),
+            $post->postedAt()->format('Y-m-d H:i:s'),
             $post->getCategories(),
         );
     }

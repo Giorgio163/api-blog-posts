@@ -16,7 +16,8 @@ class Categories
     private Collection $posts;
 
     public function __construct(
-        #[ORM\Id, ORM\Column(type: 'uuid', unique: true)]
+        #[ORM\Id,
+    ORM\Column(type: 'uuid', unique: true)]
         private UuidInterface $id,
         #[ORM\Column(type: 'string', nullable: false)]
         private string $name,

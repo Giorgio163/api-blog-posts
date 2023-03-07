@@ -47,7 +47,7 @@ App Routes
 
 ## Instructions for installation:
 
-- Clone repository: `https://gitlab.com/TiPhOoN/php4.api.project.git`
+- Clone repository: `https://github.com/Giorgio163/api-php.git`
 - Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
 - Install the composer dependencies: `composer install`
 - Configure the environment: `cp .env.example .env`

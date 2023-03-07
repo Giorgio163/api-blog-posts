@@ -10,7 +10,6 @@ use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-
 #[ORM\Entity, ORM\Table(name: 'Posts')]
 class Posts
 {
@@ -18,24 +17,25 @@ class Posts
     #[ORM\JoinTable(name:"posts_categories")]
     private Collection $category;
 
-    #[ORM\Column(name: 'posted_at', type: 'datetimetz_immutable', nullable: false)]
-    private DateTimeImmutable $posted_at;
+    #[ORM\Column(name: 'postedAt', type: 'datetimetz_immutable', nullable: false)]
+    private DateTimeImmutable $postedAt;
 
     public function __construct(
-        #[ORM\Id, ORM\Column(type: 'uuid', unique: true)]
+        #[ORM\Id,
+    ORM\Column(type: 'uuid', unique: true)]
         private UuidInterface $id,
         #[ORM\Column(type: 'string', nullable: false)]
-        private string        $title,
+        private string $title,
         #[ORM\Column(type: 'string', nullable: false)]
-        private string        $slug,
+        private string $slug,
         #[ORM\Column(type: 'string', nullable: false)]
-        private string        $content,
+        private string $content,
         #[ORM\Column(type: 'string', nullable: false)]
-        private string        $thumbnail,
+        private string $thumbnail,
         #[ORM\Column(type: 'string', nullable: false)]
-        private string        $author,
+        private string $author,
     ) {
-        $this->posted_at = new DateTimeImmutable('now');
+        $this->postedAt = new DateTimeImmutable('now');
         $this->category = new ArrayCollection();
     }
 
@@ -84,9 +84,9 @@ class Posts
         return $this->author;
     }
 
-    public function posted_at(): DateTimeImmutable
+    public function postedAt(): DateTimeImmutable
     {
-        return $this->posted_at;
+        return $this->postedAt;
     }
 
     /**
@@ -127,6 +127,7 @@ class Posts
             'content' => $this->content(),
             'thumbnail' => $this->thumbnail(),
             'author' => $this->author(),
+            'postedAt' => $this->postedAt()->format('Y-m-d H:i:s'),
             'categories' => $categories
         ];
     }

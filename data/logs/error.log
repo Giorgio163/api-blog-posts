@@ -1,0 +1,2 @@
+[2023-03-07T10:14:58.691893+01:00] api.ERROR: Call to a member function toArray() on array [] []
+[2023-03-07T11:56:52.426213+01:00] api.ERROR: Invalid UUID string: 1 [] []
