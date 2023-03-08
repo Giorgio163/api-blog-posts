@@ -1,12 +1,9 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
 name: "Continuous Integration"
 
 on:
   pull_request:
   push:
     branches:
-      - "main"
       - "php5.api.project"
 
 jobs:
