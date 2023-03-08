@@ -39,21 +39,6 @@ class Posts
         $this->category = new ArrayCollection();
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function populate(array $data): self
-    {
-        return new self(
-            Uuid::fromString($data['id']),
-            $data['title'],
-            $data['slug'],
-            $data['content'],
-            $data['thumbnail'],
-            $data['author'],
-        );
-    }
-
     public function id(): UuidInterface
     {
         return $this->id;

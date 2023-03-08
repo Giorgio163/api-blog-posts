@@ -79,8 +79,9 @@ class CreatePostsCategoryController
             JSON_THROW_ON_ERROR
         );
 
-        CategoryValidator::validateCategoryId($jsonParams['categoryId']);
         PostValidator::validate($jsonParams);
+        CategoryValidator::validateCategoryId($jsonParams['categoryId']);
+
         $slugify = new Slugify();
         $slug = $slugify->slugify($jsonParams['title']);
 

@@ -12,6 +12,7 @@ use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use function PHPUnit\Framework\isEmpty;
 
 class ListAllPostsSlugController
 {
@@ -47,17 +48,23 @@ class ListAllPostsSlugController
      *         )
      *     )
      * )
+     * @throws NotFoundException
      */
 
     public function __invoke(Request $request, Response $response, $args): JsonResponse
     {
         $posts = $this->postsRepository->findBySlug($args['slug']);
 
+        if (Empty($posts)) {
+            throw new NotFoundException('Slug not found');
+        }
+
         $postCategory = [];
 
         foreach ($posts as $post) {
             $postCategory [] = $post->toArray();
         }
+
         return new JsonResponse($postCategory);
     }
 }
