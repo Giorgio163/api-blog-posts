@@ -12,6 +12,7 @@ use Project4\Entity\Posts;
 use Project4\Repository\PostsRepository;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+
 use function PHPUnit\Framework\isEmpty;
 
 class ListAllPostsSlugController
@@ -55,7 +56,7 @@ class ListAllPostsSlugController
     {
         $posts = $this->postsRepository->findBySlug($args['slug']);
 
-        if (Empty($posts)) {
+        if (empty($posts)) {
             throw new NotFoundException('Slug not found');
         }
 
