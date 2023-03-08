@@ -1,3 +1,8 @@
+<p align="center">
+  <img align="center" height="200" src=" public/elephant.png">
+</p>
+
+
 # API Project 
 
 An API application that lets the user create posts, categories, and the relation between posts categories. The Application uses the full OOP paradigms. The Application is having routes to create, read, update, and delete posts and Categories
