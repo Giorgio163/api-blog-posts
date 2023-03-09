@@ -10,13 +10,33 @@ An API application that lets the user create posts, categories, and the relation
 ## The design patterns used in this project are:
 
 - Fluent Interface:
-  is used to define class methods/properties in a way that they are easy to read/follow just like a plain sentence in natural language.
+
+  A fluent interface is normally implemented by using method chaining to implement method cascading (in languages that do not natively support cascading), concretely by having each method return the object to which it is attached, often referred to as this or self. Stated more abstractly, a fluent interface relays the instruction context of a subsequent call in method chaining, where generally the context is
+Defined through the return value of a called method
+Self-referential, where the new context is equivalent to the last context
+Terminated through the return of a void context.
+
+
 - Dependency Injection:
-  is a software design approach that allows avoiding hard-coding dependencies and makes it possible to change the dependencies both at runtime and compile time.
+
+  In software engineering, dependency injection is a design pattern in which an object or function receives other objects or functions that it depends on. A form of inversion of control, dependency injection aims to separate the concerns of constructing objects and using them, leading to loosely coupled programs. The pattern ensures that an object or function which wants to use a given service should not have to know how to construct those services. Instead, the receiving 'client' (object or function) is provided with its dependencies by external code (an 'injector'), which it is not aware of. Fundamentally, dependency injection consists of passing parameters to a method.
+
+
 - Model-View-Controller (MVC):
- Is a software architectural pattern commonly used for developing user interfaces that divide the related program logic into three interconnected elements. This is done to separate internal representations of information from the ways information is presented to and accepted from the user.
+
+  MVC, which stands for Model-View-Controller, is a design pattern commonly used in software engineering. It is used to separate the concerns of an application into three interconnected components: the model, the view, and the controller.
+The Model represents the data and business logic of the application. It is responsible for managing the data, processing requests, and providing information to the View.
+The View is responsible for rendering the data to the user. It receives input from the user, and sends it to the Controller for processing.
+The Controller acts as an intermediary between the Model and the View. It receives input from the View, processes it, and sends commands to the Model to update the data or perform actions. It then sends the updated data to the View for rendering.
+The MVC pattern allows for modular development, where each component can be developed and tested independently. It also promotes separation of concerns, making it easier to maintain and update the application.
+
+
 - Repository:
-  A repository represents an architectural layer that handles communication between the application and data source. It is a widely used pattern whose main point is that the application does not have to know which data source is implemented and how it is implemented.
+
+  The Repository pattern is a design pattern commonly used in software engineering that provides a way to manage data storage and retrieval in a clean and modular way.
+The basic idea behind the Repository pattern is to create an interface that abstracts away the details of data storage, and provides a standardized way for other parts of the application to interact with that data. This interface is implemented by a concrete repository class, which handles the actual storage and retrieval of data from the underlying data store, such as a database or file system.
+Using the Repository pattern can help to decouple the application logic from the details of the data storage mechanism, making it easier to change the underlying storage implementation without affecting other parts of the application. It also promotes code reuse, as the repository can be used by multiple parts of the application to access the same data in a consistent way.
+Overall, the Repository pattern is a powerful tool for managing data storage and retrieval in a clean and modular way, and is widely used in software engineering today.
 
 ## Getting started
 App Routes
@@ -53,6 +73,7 @@ App Routes
 ## Instructions for installation:
 
 - Clone repository: `https://github.com/Giorgio163/api-php.git`
+- Create DB: `api`
 - Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
 - Install the composer dependencies: `composer install`
 - Configure the environment: `cp .env.example .env`
