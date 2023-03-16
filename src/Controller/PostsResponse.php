@@ -60,5 +60,4 @@ class PostsResponse
         public readonly Collection $category,
     ) {
     }
-
 }

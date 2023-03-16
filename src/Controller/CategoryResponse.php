@@ -33,5 +33,4 @@ class CategoryResponse
         public readonly string $description,
     ) {
     }
-
 }
