@@ -7,3 +7,4 @@
 [2023-03-16T14:09:56.447840+01:00] api.ERROR: Invalid UUID string: listall [] []
 [2023-03-16T14:11:35.758182+01:00] api.DEBUG: "Slug not found" [] []
 [2023-03-16T14:12:00.500884+01:00] api.DEBUG: "Warning Post ID not found!" [] []
+[2023-03-16T15:41:20.996107+01:00] api.DEBUG: "Slug not found" [] []

@@ -45,7 +45,7 @@ $app->get('/', HomeController::class);
 // Routes Posts
 $app->get('/posts/all', new ListPostsController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
-$app->get('/posts/bySlug/{slug}', new ListAllPostsSlugController($container))
+$app->get('/posts/by-slug/{slug}', new ListAllPostsSlugController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 $app->post('/posts/create', new CreatePostsCategoryController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);

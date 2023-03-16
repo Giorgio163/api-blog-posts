@@ -72,7 +72,7 @@ App Routes
 - [POST] /posts/create
 - [GET] /posts/all
 - [GET] /posts/{id}
-- [GET] /posts/bySlug/{slug}
+- [GET] /posts/by-slug/{slug}
 - [PUT] /post/{id}
 - [DELETE] /post/{id}
 
