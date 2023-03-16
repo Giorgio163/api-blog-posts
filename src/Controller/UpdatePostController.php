@@ -32,7 +32,7 @@ class UpdatePostController
 
     /**
      * @OA\Put(
-     *     path="/post/update/{id}",
+     *     path="/post/{id}",
      *     description="Update a Post by ID.",
      *     tags={"Posts"},
      * @OA\Parameter(

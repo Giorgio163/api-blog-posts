@@ -28,7 +28,7 @@ class DeletePostController
 
     /**
      * @OA\Delete(
-     *     path="/post/delete/{id}",
+     *     path="/post/{id}",
      *     description="Delete a post by ID.",
      *     tags={"Posts"},
      * @OA\Parameter(

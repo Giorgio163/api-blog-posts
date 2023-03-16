@@ -43,29 +43,29 @@ $app->get('/openApi', OpenApiController::class);
 $app->get('/', HomeController::class);
 
 // Routes Posts
-$app->get('/posts/listAll', new ListPostsController($container))->add(new OnlyAdminMiddleware())
+$app->get('/posts/all', new ListPostsController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
-$app->get('/posts/listAllBySlug/{slug}', new ListAllPostsSlugController($container))
+$app->get('/posts/bySlug/{slug}', new ListAllPostsSlugController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 $app->post('/posts/create', new CreatePostsCategoryController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
 $app->get('/posts/{id}', new FindPostController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
-$app->delete('/post/delete/{id}',new DeletePostController($container))->add(new OnlyAdminMiddleware())
+$app->delete('/post/{id}',new DeletePostController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
-$app->put('/post/update/{id}',new UpdatePostController($container))->add(new OnlyAdminMiddleware())
+$app->put('/post/{id}',new UpdatePostController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
 
 // Routes Categories
-$app->get('/categories/listAllCategories', new ListCategoriesController($container))
+$app->get('/categories/all', new ListCategoriesController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 $app->post('/categories/create', new CreateCategoriesController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
 $app->get('/categories/{id}', new FindCategoriesController($container))->add(new OnlyAdminMiddleware())
     ->add($authMiddleware);
-$app->delete('/categories/delete/{id}', new DeleteCategoriesController($container))
+$app->delete('/categories/{id}', new DeleteCategoriesController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
-$app->put('/categories/update/{id}', new UpdateCategoriesController($container))
+$app->put('/categories/{id}', new UpdateCategoriesController($container))
     ->add(new OnlyAdminMiddleware())->add($authMiddleware);
 
 

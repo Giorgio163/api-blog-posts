@@ -1,11 +1,25 @@
 <p align="center">
-  <img align="center" height="200" src="public/elephant.jpg">
+  <img align="center" height="200" src="public/elephant.png">
 </p>
 
 
 # API Project 
 
 An API application that lets the user create posts, categories, and the relation between posts categories. The Application uses the full OOP paradigms. The Application is having routes to create, read, update, and delete posts and Categories
+
+## Instructions for installation:
+
+- Clone repository: `https://github.com/Giorgio163/api-php.git`
+- Create DB: `api`
+- Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
+- Install the composer dependencies: `composer install`
+- Configure the environment: `cp .env.example .env`
+- Add your configuration to the `.env` file
+- Run the application in your preferred localhost: `php -S localhost:???? -t public/`
+- Run a test using PHPStan to see the code quality: `vendor/bin/phpstan analyse src`
+- Run a test using PHP Code Sniffer: `./vendor/bin/phpcs --standard=PSR12 src/`
+- php vendor/bin/phpunit test/ --colors
+
 
 ## The design patterns used in this project are:
 
@@ -56,59 +70,19 @@ App Routes
 ### Posts:
 
 - [POST] /posts/create
-- [GET] /posts/listAll
+- [GET] /posts/all
 - [GET] /posts/{id}
-- [GET] /posts/listAllBySlug/{slug}
-- [PUT] /post/update/{id}
-- [DELETE] /post/delete/{id}
+- [GET] /posts/bySlug/{slug}
+- [PUT] /post/{id}
+- [DELETE] /post/{id}
 
 ### Categories:
 
 - [POST] /categories/create
-- [GET] /categories/listAllCategories
+- [GET] /categories/all
 - [GET] /categories/{id}
-- [PUT] /categories/update/{id}
-- [DELETE] /categories/delete/{id}
-
-## Instructions for installation:
-
-- Clone repository: `https://github.com/Giorgio163/api-php.git`
-- Create DB: `api`
-- Create the DB: `php vendor/bin/doctrine orm:schema-tool:create`
-- Install the composer dependencies: `composer install`
-- Configure the environment: `cp .env.example .env`
-- Add your configuration to the `.env` file
-- Run the application in your preferred localhost: `php -S localhost:???? -t public/`
-- Run a test using PHPStan to see the code quality: `vendor/bin/phpstan analyse src`
-- Run a test using PHP Code Sniffer: `./vendor/bin/phpcs --standard=PSR12 src/`
-- php vendor/bin/phpunit test/ --colors
-
-
-## Required:
-
-- Slim Framework: `composer require slim/slim:"4.*"`,
--  `composer require slim/psr7`,
--  `composer require nyholm/psr7 nyholm/psr7-server`,
--  `composer require guzzlehttp/psr7 "^2"`,
--  `composer require laminas/laminas-diactoros`,
--  `composer require php-di/slim-bridge`
-- Ramsey Uuid: `composer require ramsey/uuid`
-- Ramsey Uuid/Doctrine: `composer require ramsey/uuid-doctrine`
-- Monolog: `composer require monolog/monolog`
-- JWT: `composer require firebase/php-jwt`
-- Dotenv: `composer require vlucas/phpdotenv`
-- Swagger: `composer require zircote/swagger-php`
-- Slugify: `composer require cocur/slugify`
-- composer require monolog/monolog
-- PHP Unit: `composer require --dev phpunit/phpunit ^9`
-- Doctrine ORM: `composer require doctrine/orm`
-- Doctrine Annotations: `composer require doctrine/annotations`
-- Symfony Cache: `composer require symfony/cache`
-
-### Remember to install PHPSTAN and codesniffer during the installation process in dev, if unable run the following:
-
-- PHP Stan: `composer require --dev phpstan/phpstan`
-- PHP Code Sniffer: `composer require squizlabs/php_codesniffer`
+- [PUT] /categories/{id}
+- [DELETE] /categories/{id}
 
 #### Use the following link for the images:
 

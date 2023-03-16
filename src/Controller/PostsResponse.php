@@ -61,17 +61,4 @@ class PostsResponse
     ) {
     }
 
-    public static function fromPost(Posts $post): self
-    {
-        return new PostsResponse(
-            $post->id()->toString(),
-            $post->title(),
-            $post->slug(),
-            $post->content(),
-            $post->thumbnail(),
-            $post->author(),
-            $post->postedAt()->format('Y-m-d H:i:s'),
-            $post->getCategories(),
-        );
-    }
 }

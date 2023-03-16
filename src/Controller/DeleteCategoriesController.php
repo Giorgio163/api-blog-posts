@@ -27,7 +27,7 @@ class DeleteCategoriesController
     }
     /**
      * @OA\Delete(
-     *     path="/categories/delete/{id}",
+     *     path="/categories/{id}",
      *     description="Delete a category by ID.",
      *     tags={"Categories"},
      * @OA\Parameter(

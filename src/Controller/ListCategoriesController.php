@@ -26,7 +26,7 @@ class ListCategoriesController
 
     /**
      * @OA\Get(
-     *     path="/categories/listAllCategories",
+     *     path="/categories/all",
      *     description="Returns all Categories.",
      *     tags={"Categories"},
      * @OA\Response(

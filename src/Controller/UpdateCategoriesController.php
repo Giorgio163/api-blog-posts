@@ -28,7 +28,7 @@ class UpdateCategoriesController
 
     /**
      * @OA\Put(
-     *     path="/categories/update/{id}",
+     *     path="/categories/{id}",
      *     description="Update a Category by ID.",
      *     tags={"Categories"},
      * @OA\Parameter(

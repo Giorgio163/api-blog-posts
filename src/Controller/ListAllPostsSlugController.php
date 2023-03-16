@@ -30,7 +30,7 @@ class ListAllPostsSlugController
 
     /**
      * @OA\Get(
-     *     path="/posts/listAllBySlug/{slug}",
+     *     path="/posts/bySlug/{slug}",
      *     description="Returns a Post by slug.",
      *     tags={"Posts"},
      * @OA\Parameter(

@@ -27,7 +27,7 @@ class ListPostsController
 
     /**
      * @OA\Get(
-     *     path="/posts/listAll",
+     *     path="/posts/all",
      *     description="Returns all Posts.",
      *     tags={"Posts"},
      * @OA\Response(

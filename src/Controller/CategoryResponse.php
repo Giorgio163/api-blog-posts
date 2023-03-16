@@ -34,12 +34,4 @@ class CategoryResponse
     ) {
     }
 
-    public static function fromCategory(Categories $category): self
-    {
-        return new CategoryResponse(
-            $category->id()->toString(),
-            $category->name(),
-            $category->description(),
-        );
-    }
 }
